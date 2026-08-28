@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <link rel="icon" href="data:,">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pankreas Kanseri Tespiti — nnU-Net AI</title>
+    <meta name="description" content="CT görüntülerinde 2B+3B model konsensüsü ve 3B geometrik kalite kapısı ile araştırma amaçlı pankreas tümörü adayı analizi.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary:   #070b14;
+            --bg-card:      #0f172a;
+            --bg-glass:     rgba(15, 23, 42, 0.85);
+            --accent-blue:  #3b82f6;
+            --accent-cyan:  #06b6d4;
+            --accent-red:   #ef4444;
+            --accent-green: #22c55e;
+            --text-primary: #f1f5f9;
+            --text-muted:   #94a3b8;
+            --border:       rgba(148, 163, 184, 0.12);
+            --gradient-1:   linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            --glow-blue:    0 0 40px rgba(59, 130, 246, 0.25);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ---- ANIMATED BACKGROUND ---- */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(59,130,246,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 80% 70%, rgba(6,182,212,0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+        /* ---- NAVBAR ---- */
+        nav {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 11, 20, 0.8);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--accent-cyan); }
+        .nav-badge {
+            font-size: 0.65rem;
+            background: rgba(59,130,246,0.2);
+            border: 1px solid rgba(59,130,246,0.4);
+            color: var(--accent-blue);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+
+        /* ---- HERO ---- */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(6,182,212,0.1);
+            border: 1px solid rgba(6,182,212,0.25);
+            color: var(--accent-cyan);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 28px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .hero-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.7); }
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 560px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+        }
+
+        /* ---- UPLOAD CARD ---- */
+        .upload-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 56px 40px;
+            max-width: 900px;
+            margin: 0 auto 80px;
+            box-shadow: var(--glow-blue), 0 25px 50px rgba(0,0,0,0.4);
+            transition: box-shadow 0.3s;
+        }
+        .upload-card:hover {
+            box-shadow: 0 0 70px rgba(59, 130, 246, 0.4), 0 25px 50px rgba(0,0,0,0.4);
+        }
+
+        /* Drop Zone */
+        .drop-zone {
+            border: 2px dashed rgba(59,130,246,0.45);
+            border-radius: 18px;
+            padding: 64px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(59,130,246,0.04);
+            position: relative;
+        }
+        .drop-zone:hover, .drop-zone.drag-over {
+            border-color: var(--accent-blue);
+            background: rgba(59,130,246,0.09);
+            transform: translateY(-2px);
+        }
+        .drop-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+        }
+        .drop-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, rgba(59,130,246,0.25), rgba(6,182,212,0.25));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            border: 1px solid rgba(59,130,246,0.3);
+        }
+        .drop-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .drop-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .drop-formats {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .format-badge {
+            background: rgba(6,182,212,0.12);
+            border: 1px solid rgba(6,182,212,0.3);
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        /* File selected indicator */
+        .file-selected {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.25);
+            border-radius: 10px;
+            font-size: 0.875rem;
+            color: var(--accent-green);
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        .file-selected.visible { display: flex; }
+
+        .execution-modes {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .execution-option {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.7);
+            cursor: pointer;
+        }
+        .execution-option:has(input:checked) {
+            border-color: rgba(118,185,0,0.75);
+            background: rgba(50,80,8,0.25);
+        }
+        .execution-option input { margin-top: 3px; accent-color: #76b900; }
+        .execution-option strong { display: block; font-size: 0.88rem; color: var(--text-primary); }
+        .execution-option small { display: block; margin-top: 5px; line-height: 1.4; color: var(--text-muted); }
+
+        /* Submit button */
+        .btn-analyze {
+            width: 100%;
+            margin-top: 24px;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.02em;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-analyze:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59,130,246,0.5);
+        }
+        .btn-analyze:active { transform: translateY(0); }
+        .btn-analyze::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .btn-analyze:hover::after { opacity: 1; }
+
+        /* ---- LOADING OVERLAY ---- */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(7,11,20,0.9);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .loading-overlay.active { display: flex; }
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border: 3px solid rgba(59,130,246,0.2);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 24px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .loading-sub { color: var(--text-muted); font-size: 0.875rem; }
+        .progress-bar-wrap {
+            width: 280px;
+            height: 4px;
+            background: rgba(59,130,246,0.15);
+            border-radius: 4px;
+            margin-top: 24px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 4px;
+            transition: width 0.4s;
+            transition: width 0.4s ease;
+        }
+        .progress-percent { color: var(--accent-cyan); font-size: 2rem; font-weight: 800; margin: 14px 0 4px; }
+        .loading-detail { color: var(--text-muted); font-size: 0.82rem; margin-top: 8px; min-height: 1.2em; }
+        .gpu-telemetry {
+            display: none; margin-top: 14px; padding: 10px 16px; border-radius: 10px;
+            border: 1px solid rgba(118, 185, 0, 0.55); color: #dfffa8;
+            background: rgba(34, 58, 8, 0.72); font-size: 0.86rem; font-weight: 700;
+        }
+        .gpu-telemetry.active { display: block; }
+        .loading-close { display:none; margin-top:20px; padding:10px 20px; border:1px solid var(--border); border-radius:8px; background:var(--bg-card); color:white; cursor:pointer; }
+        .loading-overlay > .loading-title:not(#progressStage),
+        .loading-overlay > .loading-desc { display: none; }
+        @keyframes progress-anim {
+            0%  { width: 0%; }
+            30% { width: 35%; }
+            60% { width: 65%; }
+            90% { width: 88%; }
+        }
+
+        /* ---- INFO CARDS ---- */
+        .info-section { margin-bottom: 80px; }
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 36px;
+            letter-spacing: -0.02em;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px 24px;
+            transition: all 0.3s;
+        }
+        .info-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(59,130,246,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .info-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+        .info-icon.blue { background: rgba(59,130,246,0.15); }
+        .info-icon.cyan { background: rgba(6,182,212,0.15); }
+        .info-icon.green { background: rgba(34,197,94,0.15); }
+        .info-icon.red { background: rgba(239,68,68,0.15); }
+        .info-card h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .info-card p {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ---- FLASH MESSAGES ---- */
+        .alerts { margin: 20px 0; }
+        .alert {
+            padding: 14px 20px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .alert-danger {
+            background: rgba(239,68,68,0.12);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: #fca5a5;
+        }
+        .alert-warning {
+            background: rgba(245,158,11,0.12);
+            border: 1px solid rgba(245,158,11,0.3);
+            color: #fcd34d;
+        }
+
+        /* ---- FOOTER ---- */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 640px) {
+            .upload-card { padding: 28px 20px; }
+            .drop-zone { padding: 32px 16px; }
+            .execution-modes { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="container">
+            <div class="nav-inner">
+                <div class="logo">Pankreas<span>AI</span></div>
+                <div class="nav-badge">2B + 3B · Anatomik Doğrulama</div>
+                <div class="nav-links">
+                    <a href="/">Ana Sayfa</a>
+                    <a href="/history">Gecmis</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="container">
+        <div class="hero">
+            <div class="hero-tag">Yapay Zeka Destekli Tani</div>
+            <h1>CT Goruntusunden<br><span class="highlight">Pankreas Tumoru Tespiti</span></h1>
+            <p class="hero-desc">
+                2B nnU-Net ve 3B DiNTS modelleriyle CT görüntünüzü analiz edin.
+                Son maske bağımsız 3B pankreas modeliyle geometrik olarak kontrol edilir; bu uzman doğrulaması değildir.
+            </p>
+        </div>
+
+        <!-- FLASH MESSAGES -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="alerts">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- UPLOAD CARD -->
+        <div class="upload-card">
+            <div class="upload-tabs" style="display:flex; justify-content:center; gap:12px; margin-bottom:20px;">
+                <button type="button" class="v-btn active" id="tabFileBtn" style="padding:10px 24px; border-radius:8px; font-weight:600; cursor:pointer;">📄 NIfTI / ZIP Yükle</button>
+                <button type="button" class="v-btn" id="tabFolderBtn" style="padding:10px 24px; border-radius:8px; font-weight:600; cursor:pointer;">📁 Doğrudan Klasör Yükle</button>
+                <button type="button" class="v-btn" id="tabPacsBtn" style="padding:10px 24px; border-radius:8px; font-weight:600; cursor:pointer;">🖧 PACS Bağlantısı</button>
+            </div>
+
+            <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+                <div class="drop-zone" id="dropZone">
+                    <input type="file" name="file" id="fileInput" accept=".nii,.nii.gz,.zip,.png,.jpg,.jpeg" multiple>
+                    <div class="drop-icon" id="dropIcon">🔬</div>
+                    <div class="drop-title" id="dropTitle">CT Görüntüsünü Buraya Sürükleyin veya Tıklayın</div>
+                    <div class="drop-subtitle" id="dropSubtitle">3D CT NIfTI/ZIP yükleyin; DICOM serisi için “Doğrudan Klasör Yükle”yi kullanın</div>
+                    <div class="drop-formats">
+                        <span class="format-badge">.nii / .nii.gz</span>
+                        <span class="format-badge">.dcm (klasör sekmesi)</span>
+                        <span class="format-badge">.png / .jpg / .jpeg</span>
+                        <span class="format-badge">.zip / Klasör</span>
+                        <span class="format-badge" style="color:var(--accent-cyan); font-weight:bold;">Maks. 8 GB / 5000 dosya</span>
+                    </div>
+                </div>
+
+                <div class="file-selected" id="fileSelected">
+                    <span>✓</span>
+                    <span id="fileName">Dosya seçildi</span>
+                </div>
+
+                <div class="execution-modes" aria-label="Model zinciri">
+                    <label class="execution-option">
+                        <input type="radio" name="analysis_profile" value="balanced" {% if default_analysis_profile == 'balanced' %}checked{% endif %}>
+                        <span>
+                            <strong>Hızlı 3-model doğrulama (önerilen)</strong>
+                            <small>Yeni CT için gerçek GPU hesabı yapar. TTA kapalı, DiNTS örtüşmesi %50; belirsiz adayları turuncu konturla korur. Bu bilgisayarda 163–294 kesitli çalışmalar yaklaşık 3–4 dakika sürmüştür.</small>
+                        </span>
+                    </label>
+                    <label class="execution-option">
+                        <input type="radio" name="analysis_profile" value="full_ensemble" {% if default_analysis_profile == 'full_ensemble' %}checked{% endif %}>
+                        <span>
+                            <strong>Tam 5-model doğrulama</strong>
+                            <small>TTA ve yüksek DiNTS örtüşmesi kullanır. Doğrulanmış veya anlamlı belirsiz aday varsa MedFormer ve R-Super hakem olarak da çalışır; bu iki aşama yaklaşık 1,5–3 dakika daha ekler.</small>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="execution-modes" aria-label="Önbellek davranışı">
+                    <label class="execution-option">
+                        <input type="radio" name="execution_mode" value="cache_allowed" {% if default_execution_mode == 'cache_allowed' %}checked{% endif %}>
+                        <span>
+                            <strong>Yeni CT’de modeli çalıştır</strong>
+                            <small>Her farklı CT seçilen profille NVIDIA GPU’da hesaplanır. Yalnız içerik olarak birebir aynı CT varsa doğrulanmış kayıt kullanılabilir.</small>
+                        </span>
+                    </label>
+                    <label class="execution-option">
+                        <input type="radio" name="execution_mode" value="fresh_gpu" {% if default_execution_mode == 'fresh_gpu' %}checked{% endif %}>
+                        <span>
+                            <strong>Seçilen profili zorla yeniden çalıştır</strong>
+                            <small>Tanılama/karşılaştırma içindir; yalnız birebir aynı CT için var olabilecek doğrulanmış kaydı da atlar.</small>
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-analyze" id="analyzeBtn">
+                    NVIDIA CUDA Analizini Başlat
+                </button>
+            </form>
+
+            <section id="pacsPanel" hidden aria-live="polite" style="max-width:720px; margin:0 auto; padding:28px; border:1px solid var(--border); border-radius:18px; background:rgba(6,182,212,0.06);">
+                <div style="font-size:1.2rem; font-weight:700; margin-bottom:10px;">PACS iş istasyonu bağlantısı</div>
+                <p style="color:var(--text-muted); line-height:1.6; margin-bottom:18px;">
+                    PACS, bu sunucuya C-ECHO ve CT C-STORE ile görüntü gönderir. Alınan DICOM yalnız sınırlı RAM önbelleğinde tutulur; web/GPU akışını korumak için dinleyici ayrı bir worker sürecidir.
+                </p>
+                <div id="pacsStatus" style="padding:14px 16px; border-radius:10px; background:rgba(15,23,42,0.7); color:var(--text-muted);">PACS yapılandırması denetleniyor…</div>
+                <button type="button" class="v-btn" id="refreshPacsBtn" style="margin-top:16px; padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer;">Durumu Yenile</button>
+                <p style="color:var(--text-muted); font-size:0.82rem; line-height:1.5; margin-top:16px;">
+                    Bu ekran dinleyiciyi başlatmaz veya hasta verisi göstermez. AE/IP/port kaydı ve güvenlik duvarı için <code>PACS_KURULUM.md</code> yönergelerini kullanın.
+                </p>
+            </section>
+        </div>
+
+        <!-- INFO CARDS -->
+        <div class="info-section">
+            <div class="section-title">Nasil Calisir?</div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon blue">📁</div>
+                    <h3>1. CT Goruntusunu Yukle</h3>
+                    <p>NIfTI (.nii, .nii.gz), DICOM (.dcm / klasör), ZIP veya Görsel (.png, .jpg) yükleyin (Maks. 8 GB / 5000 dosya).</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon purple">🧠</div>
+                    <h3>2. AI Model Analizi</h3>
+                    <p>2B nnU-Net ile 3B DiNTS adayları birleştirilir; bağımsız 3B model yanlış pankreas ve tümör alanlarını süzer.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon green">📊</div>
+                    <h3>3. Profesyonel CT Görüntüleyici</h3>
+                    <p>Zoom, Pan, Windowing (WL/WW), Büyüteç ve Maskeli DICOM ZIP indirme imkanı.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-title" id="progressStage">Yükleme hazırlanıyor</div>
+        <div class="progress-percent" id="progressPercent">0%</div>
+        <div class="loading-detail" id="progressDetail"></div>
+        <div class="gpu-telemetry" id="gpuTelemetry"></div>
+        <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+        <button type="button" class="loading-close" id="loadingClose">Kapat ve tekrar dene</button>
+        <div class="loading-title">CT Görüntüsü Analiz Ediliyor...</div>
+        <div class="loading-desc">Model aşamaları sırayla çalışır; her aşamanın PID, CUDA, VRAM, GPU yükü ve güç değeri kalıcı kaydedilir.</div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>PancreasAI · nnU-Net 2D + DiNTS 3D + anatomik 3D kapı · Araştırma amaçlı</p>
+        </div>
+    </footer>
+
+    <script>
+    (() => {
+        'use strict';
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileSelected = document.getElementById('fileSelected');
+        const fileName = document.getElementById('fileName');
+        const form = document.getElementById('uploadForm');
+        const overlay = document.getElementById('loadingOverlay');
+        const progressBar = document.getElementById('progressBar');
+        const progressPercent = document.getElementById('progressPercent');
+        const progressStage = document.getElementById('progressStage');
+        const progressDetail = document.getElementById('progressDetail');
+        const gpuTelemetry = document.getElementById('gpuTelemetry');
+        const loadingClose = document.getElementById('loadingClose');
+        const tabFileBtn = document.getElementById('tabFileBtn');
+        const tabFolderBtn = document.getElementById('tabFolderBtn');
+        const tabPacsBtn = document.getElementById('tabPacsBtn');
+        const pacsPanel = document.getElementById('pacsPanel');
+        const pacsStatus = document.getElementById('pacsStatus');
+        const refreshPacsBtn = document.getElementById('refreshPacsBtn');
+        const dropTitle = document.getElementById('dropTitle');
+        const dropSubtitle = document.getElementById('dropSubtitle');
+        let pollTimer = null;
+
+        const setProgress = (percent, stage, detail) => {
+            const safePercent = Math.max(0, Math.min(100, Math.round(Number(percent) || 0)));
+            progressBar.style.width = `${safePercent}%`;
+            progressPercent.textContent = `${safePercent}%`;
+            if (stage) progressStage.textContent = stage;
+            progressDetail.textContent = detail || '';
+        };
+
+        const setGpuTelemetry = (gpuState = null, audit = null) => {
+            const selected = (audit && audit.selected_gpu) || {};
+            const gpuName = selected.name || 'NVIDIA GPU';
+            if (gpuState && gpuState.active) {
+                const gpu = gpuState.gpu || {};
+                const owned = Boolean(gpuState.process_gpu_verified);
+                if (!owned) {
+                    const phase = gpuState.phase === 'unrelated_gpu_activity'
+                        ? 'Başka bir süreç NVIDIA aygıtını kullanıyor; modele ait sayılmadı'
+                        : 'CPU / model yükleme / I-O evresi';
+                    gpuTelemetry.textContent =
+                        `ANLIK GPU ETKİN DEĞİL | ${gpuState.stage || 'model aşaması'} | ${phase}`;
+                    gpuTelemetry.classList.add('active');
+                    return;
+                }
+                const gpuPhase = Number(gpu.utilization_percent) > 0
+                    ? 'CANLI NVIDIA CUDA HESABI'
+                    : 'MODEL CUDA SÜRECİ VAR · ANLIK HESAP %0';
+                const power = gpu.power_reading_valid === false || gpu.power_w == null
+                    ? 'güç okunamadı'
+                    : `${gpu.power_w} W`;
+                const pids = (gpuState.owned_cuda_processes || [])
+                    .map((item) => item.pid).join(',');
+                gpuTelemetry.textContent =
+                    `${gpuPhase} | ${gpu.name || gpuName} / ${gpu.cuda_device || 'cuda:0'} | ` +
+                    `%${gpu.utilization_percent || 0} | ${gpu.memory_used_mib || 0}/${gpu.memory_total_mib || 0} MiB VRAM | ` +
+                    `${gpu.temperature_c ?? '-'} C | ${power} | PID ${pids || '-'}`;
+                gpuTelemetry.classList.add('active');
+                return;
+            }
+            if (audit && audit.last_completed_stage) {
+                const last = audit.last_completed_stage;
+                const summary = last.summary || {};
+                const verified = summary.gpu_evidence ? 'doğrulandı' : 'doğrulanamadı';
+                gpuTelemetry.textContent =
+                    `SON AŞAMA ÖZETİ · CANLI DEĞİL | ${last.name} ${verified} | ` +
+                    `geçmiş tepe %${summary.peak_utilization_percent || 0} | ` +
+                    `geçmiş tepe ${summary.peak_memory_used_mib || 0} MiB VRAM | ` +
+                    `modele ait CUDA PID: ${(summary.observed_model_cuda_pids || []).join(',') || '-'}`;
+                gpuTelemetry.classList.add('active');
+                return;
+            }
+            if (audit && audit.status === 'cache_hit') {
+                gpuTelemetry.textContent = 'DOĞRULANMIŞ ÖNBELLEK | Bu istekte model/GPU çalıştırılmadı; anlık NVIDIA %0 normal.';
+                gpuTelemetry.classList.add('active');
+                return;
+            }
+            gpuTelemetry.classList.remove('active');
+            gpuTelemetry.textContent = '';
+        };
+
+        const showFiles = (files) => {
+            if (files.length === 1) {
+                fileName.textContent = files[0].name;
+            } else {
+                const firstPath = files[0].webkitRelativePath || files[0].name;
+                const folderName = firstPath.split('/')[0] || 'Klasör';
+                fileName.textContent = `Klasör: ${folderName} (${files.length} dosya seçildi)`;
+            }
+            fileSelected.classList.add('visible');
+        };
+
+        const setInputMode = (mode) => {
+            const pacsMode = mode === 'pacs';
+            form.hidden = pacsMode;
+            pacsPanel.hidden = !pacsMode;
+            tabFileBtn.classList.toggle('active', mode === 'file');
+            tabFolderBtn.classList.toggle('active', mode === 'folder');
+            tabPacsBtn.classList.toggle('active', pacsMode);
+        };
+
+        const refreshPacsStatus = async () => {
+            pacsStatus.textContent = 'PACS yapılandırması denetleniyor…';
+            try {
+                const response = await fetch('/api/pacs/status', {cache: 'no-store'});
+                const payload = await response.json();
+                if (!response.ok) throw new Error(payload.error || 'Durum okunamadı');
+                const details = payload.configured
+                    ? ` AE: ${payload.ae_title} · Port: ${payload.listen_port} · RAM cache: ${payload.max_cache_mb} MB.`
+                    : '';
+                pacsStatus.textContent = `${payload.message}${details}`;
+                pacsStatus.style.color = payload.status === 'ready' ? 'var(--accent-green)' : 'var(--text-muted)';
+            } catch (_error) {
+                pacsStatus.textContent = 'PACS durumu okunamadı. Sunucu günlüklerini kontrol edin.';
+                pacsStatus.style.color = 'var(--accent-red)';
+            }
+        };
+
+        tabFileBtn.addEventListener('click', () => {
+            setInputMode('file');
+            fileInput.removeAttribute('webkitdirectory');
+            fileInput.removeAttribute('directory');
+            fileInput.setAttribute('accept', '.nii,.nii.gz,.zip,.png,.jpg,.jpeg');
+            dropTitle.textContent = 'CT görüntüsünü seçin';
+            dropSubtitle.textContent = 'NIfTI/ZIP yükleyin; DICOM serisi için klasör sekmesini kullanın';
+        });
+
+        tabFolderBtn.addEventListener('click', () => {
+            setInputMode('folder');
+            fileInput.setAttribute('webkitdirectory', '');
+            fileInput.setAttribute('directory', '');
+            fileInput.removeAttribute('accept');
+            dropTitle.textContent = 'DICOM / CT klasörünü seçin';
+            dropSubtitle.textContent = 'Uzantısız DICOM dosyaları da desteklenir';
+        });
+
+        tabPacsBtn.addEventListener('click', () => {
+            setInputMode('pacs');
+            refreshPacsStatus();
+        });
+        refreshPacsBtn.addEventListener('click', refreshPacsStatus);
+
+        ['dragenter', 'dragover'].forEach((name) => {
+            dropZone.addEventListener(name, (event) => {
+                event.preventDefault();
+                dropZone.classList.add('drag-over');
+            });
+        });
+        ['dragleave', 'drop'].forEach((name) => {
+            dropZone.addEventListener(name, (event) => {
+                event.preventDefault();
+                dropZone.classList.remove('drag-over');
+            });
+        });
+        dropZone.addEventListener('drop', (event) => {
+            if (event.dataTransfer.files.length) {
+                fileInput.files = event.dataTransfer.files;
+                showFiles(fileInput.files);
+            }
+        });
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) showFiles(fileInput.files);
+        });
+        loadingClose.addEventListener('click', () => {
+            overlay.classList.remove('active');
+            loadingClose.style.display = 'none';
+        });
+
+        const pollProgress = async (jobId) => {
+            try {
+                const response = await fetch(`/api/progress/${encodeURIComponent(jobId)}`, {cache: 'no-store'});
+                if (response.ok) {
+                    const payload = await response.json();
+                    if (payload.percent > 35) setProgress(payload.percent, payload.stage, payload.detail);
+                    setGpuTelemetry(payload.gpu_state, payload.gpu_audit);
+                }
+            } catch (_ignored) {}
+        };
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (!fileInput.files.length) {
+                alert('Lütfen bir CT dosyası veya klasör seçin!');
+                return;
+            }
+            if (
+                fileInput.files.length === 1 &&
+                /\.(dcm|dicom)$/i.test(fileInput.files[0].name)
+            ) {
+                overlay.classList.add('active');
+                setProgress(
+                    0,
+                    'DICOM serisi gerekli',
+                    'Tek kesit yerine “Doğrudan Klasör Yükle” ile serinin tüm kesitlerini seçin.'
+                );
+                loadingClose.style.display = 'block';
+                return;
+            }
+            const randomPart = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
+            const jobId = randomPart.replace(/[^a-zA-Z0-9-]/g, '');
+            const xhr = new XMLHttpRequest();
+            overlay.classList.add('active');
+            loadingClose.style.display = 'none';
+            setGpuTelemetry(null);
+            const freshGpu = form.querySelector('input[name="execution_mode"]:checked').value === 'fresh_gpu';
+            const profile = form.querySelector('input[name="analysis_profile"]:checked').value;
+            const profileText = profile === 'balanced' ? 'hızlı 3-model' : 'tam 5-model';
+            setProgress(
+                0,
+                'Dosyalar yükleniyor',
+                freshGpu
+                    ? `${fileInput.files.length} dosya — ${profileText}, önbellek atlanacak`
+                    : `${fileInput.files.length} dosya — ${profileText} zinciri seçildi`
+            );
+            xhr.open('POST', `/upload?job_id=${encodeURIComponent(jobId)}`);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.upload.addEventListener('progress', (uploadEvent) => {
+                if (uploadEvent.lengthComputable) {
+                    const uploaded = Math.max(1, Math.round((uploadEvent.loaded / uploadEvent.total) * 35));
+                    const megabytes = (uploadEvent.loaded / 1048576).toFixed(1);
+                    setProgress(uploaded, 'Dosyalar sunucuya yükleniyor', `${megabytes} MB aktarıldı`);
+                }
+            });
+            // Model telemetrisi saniyelik örneklenir; daha sık HTTP sorgusu yeni
+            // bilgi üretmez ve Windows Terminal/Intel iGPU üzerinde gereksiz yük yaratır.
+            pollTimer = window.setInterval(() => pollProgress(jobId), 1500);
+            xhr.addEventListener('load', () => {
+                window.clearInterval(pollTimer);
+                setGpuTelemetry(null);
+                let payload = {};
+                try { payload = JSON.parse(xhr.responseText || '{}'); } catch (_ignored) {}
+                if (xhr.status >= 200 && xhr.status < 300 && payload.redirect_url) {
+                    setProgress(100, 'Analiz tamamlandı', 'Sonuç sayfası açılıyor');
+                    window.location.assign(payload.redirect_url);
+                    return;
+                }
+                setProgress(
+                    0,
+                    payload.validation_error ? 'Dosya analiz için uygun değil' : 'İşlem başarısız',
+                    payload.error || `Sunucu hatası (${xhr.status})`
+                );
+                loadingClose.style.display = 'block';
+            });
+            xhr.addEventListener('error', () => {
+                window.clearInterval(pollTimer);
+                setGpuTelemetry(null);
+                setProgress(0, 'Bağlantı hatası', 'Sunucuya ulaşılamadı.');
+                loadingClose.style.display = 'block';
+            });
+            xhr.send(new FormData(form));
+        });
+    })();
+    </script>
+</body>
+</html>

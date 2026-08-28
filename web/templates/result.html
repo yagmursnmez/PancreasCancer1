@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analiz Sonucu — PancreasAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary:   #070b14;
+            --bg-card:      #0f172a;
+            --border:       rgba(148, 163, 184, 0.12);
+            --accent-blue:  #3b82f6;
+            --accent-cyan:  #06b6d4;
+            --accent-red:   #ef4444;
+            --accent-green: #22c55e;
+            --text-primary: #f1f5f9;
+            --text-muted:   #94a3b8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 50% at 20% 40%, rgba(59,130,246,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        nav {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+            background: rgba(7, 11, 20, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 1.1rem; font-weight: 700; }
+        .logo span { color: var(--accent-cyan); }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.25);
+            border-radius: 8px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-back:hover { background: rgba(59,130,246,0.2); }
+
+        /* ---- RESULT HERO ---- */
+        .result-hero {
+            padding: 56px 0 40px;
+            text-align: center;
+        }
+        .result-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+            border: 2px solid;
+            animation: badge-appear 0.5s ease-out;
+        }
+        @keyframes badge-appear {
+            from { transform: scale(0.8); opacity: 0; }
+            to   { transform: scale(1);   opacity: 1; }
+        }
+        .result-badge.tumor-var {
+            background: rgba(239,68,68,0.12);
+            border-color: rgba(239,68,68,0.5);
+            color: #fca5a5;
+        }
+        .result-badge.tumor-yok {
+            background: rgba(34,197,94,0.12);
+            border-color: rgba(34,197,94,0.5);
+            color: #86efac;
+        }
+        .result-badge.indeterminate {
+            background: rgba(245,158,11,0.12);
+            border-color: rgba(245,158,11,0.5);
+            color: #fcd34d;
+        }
+        .result-badge .dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            animation: pulse-result 1.5s infinite;
+        }
+        .tumor-var .dot { background: #ef4444; }
+        .tumor-yok .dot { background: #22c55e; }
+        .indeterminate .dot { background: #f59e0b; }
+        @keyframes pulse-result {
+            0%,100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.7; }
+        }
+        .result-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .case-meta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .case-meta span {
+            background: rgba(148,163,184,0.08);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        /* ---- MAIN CONTENT ---- */
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        @media (max-width: 1024px) {
+            .result-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Segmentation Image */
+        .seg-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+        .seg-card-header {
+            padding: 22px 28px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-muted);
+            background: rgba(15,23,42,0.9);
+        }
+        .seg-card-header span { color: var(--text-primary); }
+        .seg-img-wrap {
+            padding: 28px;
+            background: #070b14;
+            text-align: center;
+        }
+        .seg-img-wrap img {
+            width: 100%;
+            height: auto;
+            max-height: 850px;
+            object-fit: contain;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+            border: 1px solid rgba(148,163,184,0.15);
+            transition: transform 0.3s;
+        }
+        .seg-img-wrap img:hover {
+            transform: scale(1.01);
+        }
+        .no-image {
+            padding: 60px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Stats Card */
+        .stats-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .stats-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .stats-header span { color: var(--text-primary); }
+        .stats-body { padding: 24px; }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+        }
+        .stat-item:last-child { border-bottom: none; }
+        .stat-label { color: var(--text-muted); }
+        .stat-value { font-weight: 600; font-family: monospace; }
+        .stat-value.tumor  { color: #fca5a5; }
+        .stat-value.pan    { color: #93c5fd; }
+        .stat-value.green  { color: #86efac; }
+        .stat-value.yellow { color: #fcd34d; }
+
+        /* Confidence Bar */
+        .confidence-section {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(148,163,184,0.04);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .conf-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .conf-bar-wrap {
+            height: 6px;
+            background: rgba(148,163,184,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .conf-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease-out;
+        }
+        .conf-bar.high   { background: linear-gradient(90deg, #22c55e, #86efac); }
+        .conf-bar.medium { background: linear-gradient(90deg, #f59e0b, #fcd34d); }
+        .conf-bar.low    { background: linear-gradient(90deg, #6b7280, #94a3b8); }
+
+        /* Decision Rule */
+        .decision-rule {
+            background: rgba(59,130,246,0.06);
+            border: 1px solid rgba(59,130,246,0.15);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+        .decision-rule pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.78rem;
+            color: #93c5fd;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+        .rule-title {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+
+        /* ---- MODE INDICATOR ---- */
+        .mode-banner {
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.825rem;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mode-banner.nnunet {
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.25);
+            color: #86efac;
+        }
+        .mode-banner.simulation {
+            background: rgba(245,158,11,0.08);
+            border: 1px solid rgba(245,158,11,0.25);
+            color: #fcd34d;
+        }
+        .execution-banner {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            line-height: 1.55;
+            font-size: 0.86rem;
+        }
+        .execution-banner strong { display: block; margin-bottom: 3px; }
+        .execution-banner.fresh {
+            background: rgba(118,185,0,0.10);
+            border: 1px solid rgba(118,185,0,0.55);
+            color: #dfffa8;
+        }
+        .execution-banner.cache {
+            background: rgba(245,158,11,0.10);
+            border: 1px solid rgba(245,158,11,0.45);
+            color: #fde68a;
+        }
+        .execution-banner.failed {
+            background: rgba(239,68,68,0.10);
+            border: 1px solid rgba(239,68,68,0.45);
+            color: #fecaca;
+        }
+        .execution-banner a { color: inherit; font-weight: 700; }
+
+        /* ---- ERROR ---- */
+        .error-card {
+            background: rgba(239,68,68,0.08);
+            border: 1px solid rgba(239,68,68,0.25);
+            border-radius: 14px;
+            padding: 28px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .error-card h3 { color: #fca5a5; margin-bottom: 12px; }
+        .error-card p { color: var(--text-muted); font-size: 0.875rem; }
+
+        /* ---- ACTIONS ---- */
+        .actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: white;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59,130,246,0.4); }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+
+        /* ---- MEDICAL CT VIEWER STYLES ---- */
+        .viewer-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: #0b1120;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .viewer-controls-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .v-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .v-btn:hover, .v-btn.active {
+            background: rgba(59, 130, 246, 0.25);
+            border-color: var(--accent-blue);
+            color: #60a5fa;
+        }
+        .v-badge {
+            font-family: monospace;
+            font-size: 0.78rem;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            color: var(--accent-cyan);
+        }
+
+        .ct-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 650px;
+            background: #040711;
+            overflow: hidden;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+        .ct-canvas-container:active {
+            cursor: grabbing;
+        }
+        #ctCanvas {
+            display: block;
+            transform-origin: center center;
+        }
+
+        /* Büyüteç Lens */
+        .magnifier-lens {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5), inset 0 0 10px rgba(0,0,0,0.8);
+            pointer-events: none;
+            display: none;
+            z-index: 50;
+            background: #000;
+            overflow: hidden;
+        }
+        #magnifierCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Kullanım Rehberi Info Box */
+        .viewer-guide-box {
+            margin: 20px 28px 28px;
+            padding: 20px 24px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .guide-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            color: var(--accent-cyan);
+        }
+        .guide-header h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--text-primary);
+        }
+        .guide-header .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        .guide-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            background: rgba(7, 11, 20, 0.6);
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(148, 163, 184, 0.08);
+        }
+        .guide-item strong {
+            color: var(--text-primary);
+        }
+        .guide-icon {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-inner">
+                <div class="logo">Pankreas<span>AI</span></div>
+                <a href="/" class="btn-back">← Yeni Analiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- ERROR -->
+        {% if result.error %}
+        <div class="error-card" style="margin-top: 40px;">
+            <h3>Analiz Hatası</h3>
+            <p>{{ result.error }}</p>
+        </div>
+        {% endif %}
+
+        <!-- RESULT HERO -->
+        {% if result.prediction %}
+        <div class="result-hero">
+            {% if result.has_tumor is sameas true %}
+            <div class="result-badge tumor-var">
+                <div class="dot"></div>
+                {{ result.prediction }}
+            </div>
+            {% elif result.has_tumor is sameas false and result.pancreas_verified %}
+            <div class="result-badge tumor-yok">
+                <div class="dot"></div>
+                {{ result.prediction }}
+            </div>
+            {% else %}
+            <div class="result-badge indeterminate">
+                <div class="dot"></div>
+                {{ result.prediction }}
+            </div>
+            {% endif %}
+            <div class="result-subtitle">Otomatik model kalite kapısı tamamlandı; bu sonuç radyolog/uzman doğrulaması değildir</div>
+            <div class="case-meta">
+                <span>Dosya Adı: {{ result.original_filename or result.filename or original_filename or case_id }}</span>
+                <span>{{ result.timestamp }}</span>
+                <span>Sure: {{ result.elapsed_s }}s</span>
+                {% if result.ct_shape %}
+                <span>Boyut: {{ result.ct_shape | join(' x ') }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- EXECUTION EVIDENCE -->
+        {% if result.cache_hit %}
+        <div class="execution-banner cache">
+            <strong>⚠ ÖNBELLEK SONUCU — bu istekte ağır modeller çalıştırılmadı</strong>
+            Aynı CT'nin daha önce doğrulanmış maskesi kullanıldı. Bu istek boyunca NVIDIA GPU'nun %0 görünmesi normaldir.
+            Tam zinciri yeniden ölçmek gerekirse “Tüm modelleri zorla yeniden çalıştır” seçeneği ayrıca kullanılabilir.
+            {% if result.gpu_audit and result.gpu_audit.report_url %}
+            <a href="{{ result.gpu_audit.report_url }}" target="_blank" rel="noopener">Çalışma kaydını aç</a>
+            {% endif %}
+        </div>
+        {% elif result.gpu_audit and result.gpu_audit.gpu_verified %}
+        <div class="execution-banner fresh">
+            <strong>✓ NVIDIA CUDA ÇALIŞMASI MODEL SÜREÇLERİYLE EŞLEŞTİRİLDİ</strong>
+            {% if result.gpu_audit.selected_gpu and result.gpu_audit.selected_gpu.name %}
+            {{ result.gpu_audit.selected_gpu.name }} ({{ result.gpu_audit.selected_gpu.cuda_device }});
+            {% endif %}
+            {{ result.gpu_audit.verified_stage_count }}/{{ result.gpu_audit.stage_count }} model aşaması doğrulandı;
+            tepe GPU yükü %{{ result.gpu_audit.peak_utilization_percent }},
+            tepe VRAM {{ result.gpu_audit.peak_memory_used_mib }} MiB,
+            {% if result.gpu_audit.peak_power_w %}
+            tepe güç {{ result.gpu_audit.peak_power_w }} W,
+            {% endif %}
+            {{ result.gpu_audit.sample_count }} örnek.
+            <a href="{{ result.gpu_audit.report_url }}" target="_blank" rel="noopener">PID ve telemetri kaydını aç</a>
+        </div>
+        {% elif result.gpu_audit %}
+        <div class="execution-banner failed">
+            <strong>✕ NVIDIA CUDA kullanımı model süreç ağacına bağlanamadı</strong>
+            Aygıt tepe değeri tek başına kanıt sayılmadı; sonuç GPU çalışması olarak onaylanmadı.
+            <a href="{{ result.gpu_audit.report_url }}" target="_blank" rel="noopener">Hata kaydını aç</a>
+        </div>
+        {% endif %}
+
+        <!-- MODE BANNER -->
+        {% if result.mode == 'ensemble_3d_gate' %}
+        <div class="mode-banner nnunet">
+            ⚠ Araştırma modu: 2B nnU-Net ve 3B DiNTS adayları hem voxel örtüşmesi hem fiziksel yakınlıkla karşılaştırıldı; çıktı klinik tanı veya uzman onayı değildir.
+        </div>
+        {% else %}
+        <div class="mode-banner simulation">
+            ⚠ 3B anatomik doğrulama tamamlanmadı; ham model maskesi klinik sonuç olarak yayınlanmadı.
+        </div>
+        {% endif %}
+
+        {% if result.has_tumor is none and (result.unverified_tumor_voxels or 0) > 0 %}
+        <div class="execution-banner failed">
+            <strong>⚠ NEGATİF SONUÇ VERİLMEDİ — ANLAMLI BELİRSİZ ADAY VAR</strong>
+            Modeller {{ "{:,}".format(result.unverified_tumor_voxels or 0) }} voxel
+            ({{ result.unverified_tumor_ml or 0 }} mL) üzerinde kesin sınır uzlaşısına ulaşamadı.
+            Turuncu kontur uzman incelemesi için korunmuştur.
+        </div>
+        {% endif %}
+
+        <!-- MAIN GRID -->
+        <div class="result-grid">
+
+            <!-- Segmentation Image / CT Viewer -->
+            <div class="seg-card">
+                <div class="seg-card-header">
+                    <span>🔬 Profesyonel CT Görüntüleyici</span>
+                    <span style="font-size:0.8rem; color:var(--text-muted)">Yeşil: model pankreas maskesi | Kırmızı: model tümör adayı | R/L: hasta yönü</span>
+                </div>
+                {% if result.viz_url %}
+                <div class="viewer-toolbar">
+                    <div class="viewer-controls-group">
+                        <button type="button" class="v-btn" id="btnResetZoom">🔍 Sıfırla (100%)</button>
+                        <button type="button" class="v-btn" id="btnZoomIn">➕ Yakınlaş</button>
+                        <button type="button" class="v-btn" id="btnZoomOut">➖ Uzaklaş</button>
+                        <button type="button" class="v-btn active" id="btnToggleOverlay">👁 Maske: Açık</button>
+                        <button type="button" class="v-btn" id="btnToggleMagnifier">🔎 Büyüteç: Kapalı</button>
+                    </div>
+                    <div class="viewer-controls-group">
+                        <span class="v-badge" id="zoomBadge">Zoom: 100%</span>
+                        <span class="v-badge" id="wlwwBadge">WL: 50 | WW: 350</span>
+                        <button type="button" class="v-btn" id="btnGuideToggle" title="Kullanım Rehberi">ℹ️ Rehber</button>
+                    </div>
+                </div>
+
+                <div class="ct-canvas-container" id="ctContainer">
+                    <canvas id="ctCanvas"></canvas>
+                    <div class="magnifier-lens" id="magnifierLens">
+                        <canvas id="magnifierCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- KULLANIM REHBERİ (INFO BOX) -->
+                <div class="viewer-guide-box" id="viewerGuideBox">
+                    <div class="guide-header">
+                        <span class="info-icon">i</span>
+                        <h3>KULLANIM REHBERİ (CT Görüntüleyici Kontrolleri)</h3>
+                    </div>
+                    <div class="guide-grid">
+                        <div class="guide-item">
+                            <span class="guide-icon">🖱️</span>
+                            <span><strong>Scroll (Fare Tekerleği):</strong> Yakınlaştır / Uzaklaştır (1x – 5x)</span>
+                        </div>
+                        <div class="guide-item">
+                            <span class="guide-icon">🖐️</span>
+                            <span><strong>Sol Tık + Sürükle:</strong> Görüntüyü hareket ettir (Pan)</span>
+                        </div>
+                        <div class="guide-item">
+                            <span class="guide-icon">🎛️</span>
+                            <span><strong>Sağ Tık + Sürükle:</strong> Parlaklık & Kontrast (Yukarı/Aşağı: WL, Sağ/Sol: WW)</span>
+                        </div>
+                        <div class="guide-item">
+                            <span class="guide-icon">🔎</span>
+                            <span><strong>Fare Üzerine Gelince:</strong> Büyüteç ile detay inceleme</span>
+                        </div>
+                        <div class="guide-item">
+                            <span class="guide-icon">👁️</span>
+                            <span><strong>Overlay Butonu:</strong> Tümör / Pankreas maskesini aç veya kapat</span>
+                        </div>
+                        <div class="guide-item">
+                            <span class="guide-icon">📐</span>
+                            <span><strong>Sıfırla Butonu:</strong> Zoom ve Pencere ayarlarını varsayılana döndür</span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="no-image">
+                    Görsel oluşturulamadı. Matplotlib kurulu mu kontrol edin.
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-card">
+                <div class="stats-header"><span>Analiz Detaylari</span></div>
+                <div class="stats-body">
+                    <div class="stat-item">
+                        <span class="stat-label">Dosya Adı</span>
+                        <span class="stat-value" style="color:var(--text-primary); font-size:0.8rem; word-break:break-all;">
+                            {{ result.original_filename or result.filename or original_filename or case_id }}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Model sonucu</span>
+                        <span class="stat-value {% if result.has_tumor is sameas true %}tumor{% elif result.has_tumor is sameas false %}green{% else %}yellow{% endif %}">
+                            {{ result.prediction }}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Pankreas Voksel</span>
+                        <span class="stat-value pan">{{ "{:,}".format(result.pancreas_voxels or 0) }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Tumor Voksel</span>
+                        <span class="stat-value tumor">{{ "{:,}".format(result.tumor_voxels or 0) }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Pankreas Hacmi</span>
+                        <span class="stat-value pan">{{ result.pancreas_ml or 0 }} mL</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Model Tümör Adayı Hacmi</span>
+                        <span class="stat-value tumor">{{ result.tumor_ml or 0 }} mL</span>
+                    </div>
+                    {% if result.tumor_dimensions_mm %}
+                    <div class="stat-item">
+                        <span class="stat-label">Model Boyutu (R/L × A/P × S/I)</span>
+                        <span class="stat-value tumor">{{ result.tumor_dimensions_mm | join(' × ') }} mm</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Kaba Anatomik Bölge</span>
+                        <span class="stat-value yellow">{{ result.estimated_tumor_location or 'belirsiz' }}*</span>
+                    </div>
+                    {% endif %}
+                    <div class="stat-item">
+                        <span class="stat-label">Modeller Arası 3B Dice</span>
+                        <span class="stat-value {% if result.pancreas_verified %}green{% else %}yellow{% endif %}">
+                            {% if result.cross_model_dice is not none %}{{ result.cross_model_dice }}{% else %}—{% endif %}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Tümör Modelleri Arası Dice</span>
+                        <span class="stat-value yellow">
+                            {% if result.tumor_cross_model_dice is not none %}{{ result.tumor_cross_model_dice }}{% else %}—{% endif %}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Tümör Modelleri Fiziksel Yakınlık Uyumu</span>
+                        <span class="stat-value yellow">
+                            {% if result.tumor_cross_model_proximity_dice is not none %}{{ result.tumor_cross_model_proximity_dice }}{% else %}—{% endif %}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Belirsiz Model Adayı</span>
+                        <span class="stat-value yellow">{{ "{:,}".format(result.unverified_tumor_voxels or 0) }} voxel / {{ result.unverified_tumor_ml or 0 }} mL</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sınır Güveni</span>
+                        <span class="stat-value {% if result.boundary_confidence in ['çok düşük', 'düşük', 'hesaplanamadı'] %}tumor{% else %}yellow{% endif %}">
+                            {{ result.boundary_confidence or 'hesaplanamadı' }}
+                            {% if result.boundary_agreement is not none %} (en düşük model Dice {{ result.boundary_agreement }}){% endif %}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Reddedilen Ham Tümör Vokseli</span>
+                        <span class="stat-value yellow">{{ "{:,}".format(result.rejected_tumor_voxels or 0) }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">2B / 3B Ham Tümör Vokseli</span>
+                        <span class="stat-value yellow">{{ "{:,}".format(result.nnunet_raw_tumor_voxels or 0) }} / {{ "{:,}".format(result.dints_raw_tumor_voxels or 0) }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Analiz Suresi</span>
+                        <span class="stat-value">{{ result.elapsed_s }}s</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Çalıştırma Biçimi</span>
+                        <span class="stat-value {% if result.cache_hit %}yellow{% else %}green{% endif %}" style="font-size:0.75rem">
+                            {% if result.cache_hit %}Önbellek — model çalışmadı{% else %}Taze NVIDIA / CUDA{% endif %}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Model</span>
+                        <span class="stat-value" style="color:var(--accent-cyan); font-size:0.75rem">
+                            {{ result.analysis_profile_label or 'Model profili' }} — {{ (result.models or []) | join(' + ') }}
+                        </span>
+                    </div>
+
+                    <!-- Doğrulama durumu: olasılık yüzdesi değildir. -->
+                    <div class="confidence-section">
+                        <div class="conf-label">Doğrulama Durumu: {{ result.confidence }}</div>
+                        {% if result.quality_reason %}
+                        <div style="font-size:0.78rem; color:#fcd34d; line-height:1.5;">{{ result.quality_reason }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Karar Kuralı -->
+                    <div class="decision-rule">
+                        <div class="rule-title">Model Kalite Kapısı (uzman doğrulaması değildir)</div>
+                        <pre>pankreas doğrulandı = {{ result.pancreas_verified }}
+ham tümör vokseli  = {{ result.raw_tumor_voxels or 0 }}
+kalan tümör vokseli = {{ result.tumor_voxels or 0 }}
+
+Bileşen başına zorunlu:
+• hacim ≥ 0.30 mL
+• en az 2 kesit
+• pankreasın 5 mm anatomik bandında ≥ %10 destek
+• 2B ve 3B tümör modellerinde ≥ 0.10 mL ortak alan
+• tümör modelleri Dice ≥ 0.10
+• pankreas modelleri Dice ≥ 0.20
+
+Bu eşikler yalnızca adayın tamamen reddedilmesini önler.
+En düşük model Dice < 0.30 ise sınır güveni çok düşük,
+0.30–0.50 ise düşük olarak gösterilir ve kesin sınır yayımlanmaz.
+
+* Bölge ve boyut yalnız model maskesinden hesaplanır.</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="actions">
+            <a href="/" class="btn btn-primary">+ Yeni CT Analiz Et</a>
+            {% if result.report_available %}
+            <a href="{{ url_for('download_report', case_id=case_id) }}" class="btn btn-outline" style="border-color:#f59e0b; color:#f59e0b">
+                📄 Hasta Raporunu İndir (PDF)
+            </a>
+            {% endif %}
+            {% if result.viz_url %}
+            <a href="{{ url_for('download_masked_png', case_id=case_id) }}" class="btn btn-outline" style="border-color:#ec4899; color:#ec4899">
+                🖼 Maskeli Görüntüleri İndir (PNG)
+            </a>
+            {% endif %}
+            {% if result.interactive_3d_url %}
+            <a href="{{ result.interactive_3d_url }}" target="_blank" rel="noopener" class="btn btn-outline" style="border-color:var(--accent-green); color:var(--accent-green)">
+                🧊 İnteraktif 3B Görüntüle
+            </a>
+            {% endif %}
+            {% if result.dicom_url %}
+            <a id="dicomDownloadBtn" href="{{ result.dicom_url }}" class="btn btn-outline" style="border-color:var(--accent-cyan); color:var(--accent-cyan)">
+                📥 DICOM Olarak İndir (ZIP)
+            </a>
+            {% elif result.dicom_status_url %}
+            <a id="dicomDownloadBtn" href="#" aria-disabled="true" class="btn btn-outline" style="border-color:var(--text-muted); color:var(--text-muted); pointer-events:none">
+                ⏳ DICOM paketi hazırlanıyor (0%)
+            </a>
+            {% endif %}
+            <a href="/history" class="btn btn-outline">Gecmis Analizler</a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <footer>
+        <div class="container">
+            PancreasAI · Otomatik model kalite kontrolü · Araştırma amaçlıdır — Klinik karar verme veya tanı aracı değildir
+        </div>
+    </footer>
+
+    <!-- MEDICAL CT VIEWER JAVASCRIPT -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dicomStatusUrl = {{ (result.dicom_status_url or '') | tojson }};
+        const dicomButton = document.getElementById("dicomDownloadBtn");
+        if (dicomStatusUrl && dicomButton && dicomButton.getAttribute("aria-disabled") === "true") {
+            const refreshDicomStatus = async () => {
+                try {
+                    const response = await fetch(dicomStatusUrl, {cache: "no-store"});
+                    const payload = await response.json();
+                    if (payload.status === "ready" && payload.url) {
+                        dicomButton.href = payload.url;
+                        dicomButton.removeAttribute("aria-disabled");
+                        dicomButton.style.pointerEvents = "auto";
+                        dicomButton.style.borderColor = "var(--accent-cyan)";
+                        dicomButton.style.color = "var(--accent-cyan)";
+                        dicomButton.textContent = "📥 DICOM Olarak İndir (ZIP)";
+                        return;
+                    }
+                    if (payload.status === "error") {
+                        dicomButton.textContent = "⚠ DICOM paketi oluşturulamadı";
+                        return;
+                    }
+                    dicomButton.textContent = `⏳ DICOM paketi hazırlanıyor (${payload.percent || 0}%)`;
+                    window.setTimeout(refreshDicomStatus, 1500);
+                } catch (_ignored) {
+                    window.setTimeout(refreshDicomStatus, 2500);
+                }
+            };
+            refreshDicomStatus();
+        }
+
+        const vizUrl = "{{ result.viz_url }}";
+        if (!vizUrl) return;
+
+        const container = document.getElementById("ctContainer");
+        const canvas = document.getElementById("ctCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const magLens = document.getElementById("magnifierLens");
+        const magCanvas = document.getElementById("magnifierCanvas");
+        const magCtx = magCanvas.getContext("2d");
+
+        const zoomBadge = document.getElementById("zoomBadge");
+        const wlwwBadge = document.getElementById("wlwwBadge");
+        const btnResetZoom = document.getElementById("btnResetZoom");
+        const btnZoomIn = document.getElementById("btnZoomIn");
+        const btnZoomOut = document.getElementById("btnZoomOut");
+        const btnToggleOverlay = document.getElementById("btnToggleOverlay");
+        const btnToggleMagnifier = document.getElementById("btnToggleMagnifier");
+        const btnGuideToggle = document.getElementById("btnGuideToggle");
+        const guideBox = document.getElementById("viewerGuideBox");
+
+        let img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = vizUrl;
+
+        let scale = 1.0;
+        let minScale = 1.0;
+        let maxScale = 5.0;
+        let panX = 0;
+        let panY = 0;
+
+        let isPanning = false;
+        let isWindowing = false;
+        let startX = 0;
+        let startY = 0;
+
+        let wl = 50;  // Default Window Level
+        let ww = 350; // Default Window Width
+
+        let overlayOn = true;
+        let magnifierOn = false;
+
+        img.onload = function () {
+            initCanvas();
+            draw();
+        };
+
+        function initCanvas() {
+            if (!container) return;
+            const rect = container.getBoundingClientRect();
+            canvas.width = rect.width || 800;
+            canvas.height = rect.height || 650;
+
+            magCanvas.width = 160;
+            magCanvas.height = 160;
+        }
+
+        function draw() {
+            if (!img.complete || img.naturalWidth === 0) return;
+
+            ctx.save();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Windowing (WL/WW) simulation via contrast/brightness filter
+            const contrastVal = Math.max(0.1, Math.min(4.0, (350 / ww)));
+            const brightnessVal = Math.max(0.2, Math.min(3.0, 1.0 + (50 - wl) / 100.0));
+
+            let filterStr = `brightness(${brightnessVal}) contrast(${contrastVal})`;
+            if (!overlayOn) {
+                filterStr += ` saturate(0)`;
+            }
+            ctx.filter = filterStr;
+
+            // Apply Pan & Zoom Transform
+            ctx.translate(canvas.width / 2 + panX, canvas.height / 2 + panY);
+            ctx.scale(scale, scale);
+
+            // Draw centered image
+            const imgAspect = img.naturalWidth / img.naturalHeight;
+            let dWidth = canvas.width * 0.95;
+            let dHeight = dWidth / imgAspect;
+
+            if (dHeight > canvas.height * 0.95) {
+                dHeight = canvas.height * 0.95;
+                dWidth = dHeight * imgAspect;
+            }
+
+            ctx.drawImage(img, -dWidth / 2, -dHeight / 2, dWidth, dHeight);
+            ctx.restore();
+
+            // Update UI Badges
+            if (zoomBadge) zoomBadge.textContent = `Zoom: ${Math.round(scale * 100)}%`;
+            if (wlwwBadge) wlwwBadge.textContent = `WL: ${Math.round(wl)} | WW: ${Math.round(ww)}`;
+        }
+
+        window.addEventListener("resize", function () {
+            initCanvas();
+            draw();
+        });
+
+        // Zoom (Mouse Wheel)
+        container.addEventListener("wheel", function (e) {
+            e.preventDefault();
+            const delta = e.deltaY < 0 ? 0.15 : -0.15;
+            const newScale = Math.max(minScale, Math.min(maxScale, scale + delta));
+
+            if (newScale !== scale) {
+                scale = newScale;
+                if (scale === minScale) {
+                    panX = 0;
+                    panY = 0;
+                }
+                draw();
+            }
+        }, { passive: false });
+
+        // Mousedown (Pan: Left Click, Windowing: Right Click)
+        container.addEventListener("mousedown", function (e) {
+            e.preventDefault();
+            startX = e.clientX;
+            startY = e.clientY;
+
+            if (e.button === 0) {
+                isPanning = true;
+                container.style.cursor = "grabbing";
+            } else if (e.button === 2) {
+                isWindowing = true;
+                container.style.cursor = "ns-resize";
+            }
+        });
+
+        container.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        // Mousemove (Pan / WL-WW / Magnifier)
+        window.addEventListener("mousemove", function (e) {
+            if (isPanning) {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                startX = e.clientX;
+                startY = e.clientY;
+
+                panX += dx;
+                panY += dy;
+
+                const maxPan = 400 * scale;
+                panX = Math.max(-maxPan, Math.min(maxPan, panX));
+                panY = Math.max(-maxPan, Math.min(maxPan, panY));
+
+                draw();
+            } else if (isWindowing) {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                startX = e.clientX;
+                startY = e.clientY;
+
+                wl -= dy * 0.8;
+                ww += dx * 1.2;
+
+                wl = Math.max(-500, Math.min(500, wl));
+                ww = Math.max(10, Math.min(1000, ww));
+
+                draw();
+            }
+
+            if (magnifierOn) {
+                const rect = container.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                if (mouseX >= 0 && mouseX <= rect.width && mouseY >= 0 && mouseY <= rect.height) {
+                    magLens.style.display = "block";
+                    magLens.style.left = `${mouseX - 80}px`;
+                    magLens.style.top = `${mouseY - 80}px`;
+
+                    magCtx.save();
+                    magCtx.clearRect(0, 0, magCanvas.width, magCanvas.height);
+                    magCtx.drawImage(
+                        canvas,
+                        mouseX - 32, mouseY - 32, 64, 64,
+                        0, 0, magCanvas.width, magCanvas.height
+                    );
+                    magCtx.restore();
+                } else {
+                    magLens.style.display = "none";
+                }
+            }
+        });
+
+        window.addEventListener("mouseup", function () {
+            if (isPanning) {
+                isPanning = false;
+                container.style.cursor = "grab";
+            }
+            if (isWindowing) {
+                isWindowing = false;
+                container.style.cursor = "grab";
+            }
+        });
+
+        btnResetZoom.addEventListener("click", function () {
+            scale = 1.0;
+            panX = 0;
+            panY = 0;
+            wl = 50;
+            ww = 350;
+            draw();
+        });
+
+        btnZoomIn.addEventListener("click", function () {
+            scale = Math.min(maxScale, scale + 0.3);
+            draw();
+        });
+
+        btnZoomOut.addEventListener("click", function () {
+            scale = Math.max(minScale, scale - 0.3);
+            if (scale === minScale) {
+                panX = 0;
+                panY = 0;
+            }
+            draw();
+        });
+
+        btnToggleOverlay.addEventListener("click", function () {
+            overlayOn = !overlayOn;
+            btnToggleOverlay.classList.toggle("active", overlayOn);
+            btnToggleOverlay.textContent = overlayOn ? "👁 Maske: Açık" : "👁 Maske: Kapalı";
+            draw();
+        });
+
+        btnToggleMagnifier.addEventListener("click", function () {
+            magnifierOn = !magnifierOn;
+            btnToggleMagnifier.classList.toggle("active", magnifierOn);
+            btnToggleMagnifier.textContent = magnifierOn ? "🔎 Büyüteç: Açık" : "🔎 Büyüteç: Kapalı";
+            if (!magnifierOn) {
+                magLens.style.display = "none";
+            }
+        });
+
+        btnGuideToggle.addEventListener("click", function () {
+            if (guideBox.style.display === "none") {
+                guideBox.style.display = "block";
+            } else {
+                guideBox.style.display = "none";
+            }
+        });
+    });
+    </script>
+</body>
+</html>
