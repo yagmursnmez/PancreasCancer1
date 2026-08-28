@@ -1,0 +1,51 @@
+{
+    "step": "ADIM5_Validation",
+    "timestamp": "2026-08-06T12:10:41.712789",
+    "segmentation": {
+        "pancreas": {
+            "dice_mean": 0.7698169350624084,
+            "dice_std": 0.08548009586374371,
+            "dice_median": 0.7831028401851654,
+            "dice_min": 0.45453208684921265,
+            "dice_max": 0.8991103768348694,
+            "iou_mean": 0.6331130434637484,
+            "iou_std": 0.10620956866737583
+        },
+        "tumor": {
+            "dice_mean": 0.31043920343497766,
+            "dice_std": 0.3235883164511307,
+            "dice_median": 0.17065565288066864,
+            "dice_min": 1.3577731994285358e-10,
+            "dice_max": 0.926479160785675,
+            "iou_mean": 0.23524899846994599,
+            "iou_std": 0.2718468758038476,
+            "n_cases": 46
+        },
+        "n_total": 46,
+        "n_tumor": 46
+    },
+    "classification": {
+        "accuracy": 0.7391304347826086,
+        "precision": 1.0,
+        "recall": 0.7391304347826086,
+        "f1_score": 0.85,
+        "n_samples": 46,
+        "n_tumor": 46,
+        "n_healthy": 0,
+        "roc_auc": NaN,
+        "TP": 34,
+        "TN": 0,
+        "FP": 0,
+        "FN": 12
+    },
+    "confusion_matrix": [
+        [
+            0,
+            0
+        ],
+        [
+            12,
+            34
+        ]
+    ]
+}

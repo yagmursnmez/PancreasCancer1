@@ -1,0 +1,188 @@
+{
+  "cache_key": "915dcf7f78c2649de0c7f060a9ee4d9400abd28b63306502f84638a149ce1805",
+  "quality": {
+    "status": "candidate",
+    "pancreas_verified": true,
+    "has_tumor": true,
+    "voxel_volume_ml": 0.0024719,
+    "raw_pancreas_voxels": 34574,
+    "raw_tumor_voxels": 2497,
+    "primary_tumor_voxels": 1486,
+    "secondary_tumor_voxels": 1771,
+    "gate_voxels": 26632,
+    "gate_ml": 65.832,
+    "gate_slices": 14,
+    "gate_components": 1,
+    "gate_plausible": true,
+    "tumor_components": [
+      {
+        "component": 1,
+        "raw_voxels": 2391,
+        "raw_ml": 5.9104,
+        "supported_voxels": 2391,
+        "supported_ml": 5.9104,
+        "supported_slices": 7,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 1380,
+        "secondary_model_voxels": 1771,
+        "cross_model_overlap_voxels": 760,
+        "cross_model_overlap_ml": 1.8787,
+        "accepted": true,
+        "rejection_reasons": []
+      },
+      {
+        "component": 2,
+        "raw_voxels": 106,
+        "raw_ml": 0.262,
+        "supported_voxels": 106,
+        "supported_ml": 0.262,
+        "supported_slices": 1,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 106,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "kesit_esigi",
+          "tek_model_adayi"
+        ]
+      }
+    ],
+    "reason": null,
+    "cross_model_dice": 0.8168,
+    "tumor_cross_model_dice": 0.4667,
+    "tumor_cross_model_overlap_voxels": 760,
+    "tumor_cross_model_overlap_ml": 1.8787,
+    "pancreas_voxels": 37888,
+    "pancreas_ml": 93.656,
+    "tumor_voxels": 2391,
+    "tumor_ml": 5.91,
+    "rejected_tumor_voxels": 106,
+    "nnunet_raw_tumor_voxels": 1486,
+    "dints_raw_tumor_voxels": 1771,
+    "models": [
+      "nnU-Net v2 2D",
+      "MONAI DiNTS 3B",
+      "TotalSegmentator 3B full",
+      "MedFormer PanTS",
+      "R-Super PanTS Merlin"
+    ],
+    "checkpoint": "checkpoint_best.pth",
+    "roi_original_shape": [
+      512,
+      512,
+      103
+    ],
+    "roi_shape": [
+      512,
+      512,
+      96
+    ],
+    "roi_slice_range": [
+      7,
+      103
+    ],
+    "roi_reduction_pct": 6.8,
+    "timings": {
+      "cache_lookup_s": 0.109,
+      "anatomical_gate_s": 71.047,
+      "nnunet_s": 54.25,
+      "dints_s": 165.078,
+      "pants_medformer_s": 58.046,
+      "pants_rsuper_s": 45.062
+    },
+    "cache_key": "915dcf7f78c2649de0c7f060a9ee4d9400abd28b63306502f84638a149ce1805",
+    "cache_hit": false,
+    "pants_enabled": true,
+    "pants_models": [
+      "MedFormer PanTS",
+      "R-Super PanTS Merlin"
+    ],
+    "pants_thresholds": {
+      "medformer": 0.45,
+      "rsuper": 0.45,
+      "core": 0.6,
+      "envelope": 0.3
+    },
+    "pants_cross_model_dice": 0.4417,
+    "tumor_core_ml": 5.91,
+    "tumor_primary_ml": 5.91,
+    "tumor_envelope_ml": 13.24,
+    "pants_roi_shape": [
+      326,
+      424,
+      46
+    ],
+    "uncertainty_mask_path": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\segmentation_masks\\TUMORLU_uncertainty.nii.gz",
+    "pants_expansion_allowed": false,
+    "pants_rejection_reason": "PanTS modelleri doğrulanmış aday çevresinde yeterli uzamsal uyum göstermedi; ana maske genişletilmedi.",
+    "pants_added_tumor_voxels": 0
+  },
+  "measurements": {
+    "coordinate_system": "NIfTI RAS hasta koordinatları",
+    "voxel_volume_ml": 0.0024719,
+    "pancreas": {
+      "voxels": 37888,
+      "volume_ml": 93.656,
+      "dimensions_rl_ap_si_mm": [
+        144.8,
+        68.9,
+        75.0
+      ],
+      "centroid_ras_mm": [
+        -24.9,
+        -9.0,
+        -323.4
+      ],
+      "bbox_ras_mm": {
+        "min": [
+          -104.7,
+          -47.5,
+          -365.8
+        ],
+        "max": [
+          40.2,
+          21.4,
+          -290.8
+        ]
+      }
+    },
+    "tumor": {
+      "voxels": 2391,
+      "volume_ml": 5.91,
+      "dimensions_rl_ap_si_mm": [
+        25.3,
+        22.5,
+        35.0
+      ],
+      "centroid_ras_mm": [
+        3.4,
+        -2.5,
+        -329.5
+      ],
+      "bbox_ras_mm": {
+        "min": [
+          -7.7,
+          -14.5,
+          -345.8
+        ],
+        "max": [
+          17.7,
+          8.0,
+          -310.8
+        ]
+      }
+    },
+    "estimated_location": {
+      "estimated_region": "baş",
+      "method": "pankreasın RAS sağ-sol uzanımındaki göreli tümör aralığı",
+      "tumor_range_fraction_left_to_right": [
+        0.673,
+        0.844
+      ],
+      "warning": "Kaba anatomik tahmindir; radyolog lokalizasyonunun yerini tutmaz."
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+    "step": "ADIM8_3DReconstruction",
+    "results": [
+        {
+            "case_id": "case_0001.nii",
+            "has_tumor": true,
+            "prediction": "Tumor Var",
+            "outputs": {
+                "pancreas_stl": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0001.nii\\case_0001.nii_pancreas.stl",
+                "tumor_stl": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0001.nii\\case_0001.nii_tumor.stl",
+                "3d_png": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\visualizations\\case_0001.nii_3d_reconstruction.png",
+                "interactive_html": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0001.nii\\case_0001.nii_3d_interactive.html",
+                "web_png": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\web\\static\\results\\case_0001.nii_3d_reconstruction.png"
+            }
+        },
+        {
+            "case_id": "case_0002.nii",
+            "has_tumor": true,
+            "prediction": "Tumor Var",
+            "outputs": {
+                "pancreas_stl": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0002.nii\\case_0002.nii_pancreas.stl",
+                "tumor_stl": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0002.nii\\case_0002.nii_tumor.stl",
+                "3d_png": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\visualizations\\case_0002.nii_3d_reconstruction.png",
+                "interactive_html": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0002.nii\\case_0002.nii_3d_interactive.html",
+                "web_png": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\web\\static\\results\\case_0002.nii_3d_reconstruction.png"
+            }
+        },
+        {
+            "case_id": "case_0003.nii",
+            "has_tumor": true,
+            "prediction": "Tumor Var",
+            "outputs": {
+                "pancreas_stl": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0003.nii\\case_0003.nii_pancreas.stl",
+                "tumor_stl": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0003.nii\\case_0003.nii_tumor.stl",
+                "3d_png": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\visualizations\\case_0003.nii_3d_reconstruction.png",
+                "interactive_html": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\3d_reconstructions\\case_0003.nii\\case_0003.nii_3d_interactive.html",
+                "web_png": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\web\\static\\results\\case_0003.nii_3d_reconstruction.png"
+            }
+        }
+    ]
+}

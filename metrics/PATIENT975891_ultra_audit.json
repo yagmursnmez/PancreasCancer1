@@ -1,0 +1,37 @@
+{
+  "created_at": "2026-08-06T14:43:20+03:00",
+  "case_id": "PATIENT975891_ultra",
+  "input": "data/inference_output/audit_inputs/PATIENT975891_final_0000.nii.gz",
+  "dicom_series": {
+    "description": "Tum Batin 70 sn 3.00 Br36 S3",
+    "slice_count": 157,
+    "spacing_mm": [0.80789065, 0.80789065, 3.0],
+    "orientation": ["P", "L", "S"],
+    "hu_range": [-1024.0, 3071.0]
+  },
+  "pipeline": [
+    "nnU-Net v2 2D",
+    "MONAI DiNTS 3D",
+    "TotalSegmentator 3D full",
+    "physical connected-component validation"
+  ],
+  "result": {
+    "prediction": "Doğrulanmış tümör adayı saptanmadı",
+    "pancreas_verified": true,
+    "cross_model_dice": 0.8097,
+    "pancreas_voxels": 38047,
+    "pancreas_ml": 74.498,
+    "nnunet_raw_tumor_voxels": 1230,
+    "dints_raw_tumor_voxels": 0,
+    "verified_tumor_voxels": 0,
+    "verified_tumor_ml": 0.0,
+    "rejected_tumor_voxels": 1230,
+    "elapsed_seconds": 342.55
+  },
+  "outputs": {
+    "mask": "data/inference_output/segmentation_masks/PATIENT975891_ultra.nii.gz",
+    "visualization": "web/static/results/PATIENT975891_ultra_seg.png",
+    "dicom_zip": "web/static/results/PATIENT975891_ultra_maskeli_goruntu.zip"
+  },
+  "medical_note": "Araştırma amaçlıdır. Tümör adayı saptanmaması maligniteyi dışlamaz."
+}

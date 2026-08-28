@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-08-12T11:50:00+03:00",
+  "gpu": {
+    "windows_task_manager_label": "GPU 1",
+    "cuda_label": "cuda:0",
+    "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "vram_mib": 6144,
+    "pytorch": "2.7.1+cu118",
+    "cuda_runtime": "11.8"
+  },
+  "live_model_measurement": {
+    "nvidia_utilization_percent_range": [73, 92],
+    "peak_vram_mib": 4588,
+    "power_watts_range": [91.87, 97.71],
+    "sm_clock_mhz_range": [1866, 1929],
+    "conclusion": "Model inference ran on the RTX 3060 CUDA compute engine."
+  },
+  "intel_gpu_process_attribution": [
+    {"process": "chrome", "pid": 15740, "3d_percent": 66},
+    {"process": "dwm", "pid": 1668, "3d_percent": 25},
+    {"process": "ChatGPT", "pid": 18504, "3d_percent": 7}
+  ],
+  "measured_case_before_optimization": {
+    "case": "000040F3_--443_A7",
+    "shape": [512, 512, 443],
+    "model_roi_shape": [512, 512, 240],
+    "total_seconds": 612.1,
+    "stages_seconds": {
+      "anatomical_gate": 79.14,
+      "nnunet": 141.172,
+      "dints_batch_1": 142.078,
+      "pants_medformer": 77.203,
+      "pants_rsuper": 75.079
+    }
+  },
+  "benchmarks": {
+    "dints_batch_4": {
+      "roi_shape": [512, 512, 241],
+      "engine_seconds": 90.564,
+      "average_active_gpu_percent": 80.8,
+      "peak_gpu_percent": 92,
+      "peak_total_vram_mib_during_test": 5140,
+      "status": "passed"
+    },
+    "nnunet_disable_tta": {
+      "gpu_prediction_seconds_with_tta": 56.0,
+      "gpu_prediction_seconds_without_tta": 18.5,
+      "pancreas_dice_vs_tta": 0.886729,
+      "tumor_dice_vs_tta": 0.0,
+      "decision": "rejected because the speedup changed clinically relevant labels"
+    }
+  },
+  "applied_changes": [
+    "DiNTS sliding-window batch increased from 1 to 4.",
+    "CUDA verification moved to a short-lived subprocess, releasing 644 MiB idle VRAM.",
+    "Negative cases skip two PanTS models that cannot change the seed-anchored tumour decision.",
+    "All model subprocesses remain pinned to CUDA_VISIBLE_DEVICES=0, which is Windows GPU 1."
+  ],
+  "estimated_negative_case_runtime_after_seconds": 431,
+  "estimated_negative_case_speedup_percent": 29.6
+}

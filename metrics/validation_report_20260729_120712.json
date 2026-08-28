@@ -1,0 +1,42 @@
+{
+    "step": "ADIM5_Validation",
+    "timestamp": "2026-07-29T12:07:12.149125",
+    "segmentation": {
+        "pancreas": {
+            "dice_mean": 1.0,
+            "dice_std": 0.0,
+            "dice_median": 1.0,
+            "dice_min": 1.0,
+            "dice_max": 1.0,
+            "iou_mean": 1.0,
+            "iou_std": 0.0
+        },
+        "tumor": {
+            "dice_mean": 1.0,
+            "dice_std": 0.0,
+            "dice_median": 1.0,
+            "dice_min": 1.0,
+            "dice_max": 1.0,
+            "iou_mean": 1.0,
+            "iou_std": 0.0,
+            "n_cases": 226
+        },
+        "n_total": 226,
+        "n_tumor": 226
+    },
+    "classification": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "n_samples": 226,
+        "n_tumor": 226,
+        "n_healthy": 0,
+        "roc_auc": NaN
+    },
+    "confusion_matrix": [
+        [
+            226
+        ]
+    ]
+}

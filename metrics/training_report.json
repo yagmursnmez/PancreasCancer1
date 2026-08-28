@@ -1,0 +1,29 @@
+{
+    "step": "ADIM4_Training",
+    "timestamp": "2026-07-29 11:49:56",
+    "success": true,
+    "elapsed_s": 149787.47948098183,
+    "elapsed_h": 41.60763318916162,
+    "config": {
+        "dataset_id": "007",
+        "configuration": "2d",
+        "fold": 0
+    },
+    "checkpoint": {
+        "fold_dir": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\nnunet_results\\Dataset007_Pancreas\\nnUNetTrainer__nnUNetPlans__2d\\fold_0",
+        "exists": true,
+        "checkpoints": {
+            "checkpoint_best.pth": {
+                "path": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\nnunet_results\\Dataset007_Pancreas\\nnUNetTrainer__nnUNetPlans__2d\\fold_0\\checkpoint_best.pth",
+                "size_mb": 353.896258354187
+            },
+            "checkpoint_final.pth": {
+                "path": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\nnunet_results\\Dataset007_Pancreas\\nnUNetTrainer__nnUNetPlans__2d\\fold_0\\checkpoint_final.pth",
+                "size_mb": 353.9897451400757
+            }
+        },
+        "last_epoch": null,
+        "best_dice": null,
+        "progress_png": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\nnunet_results\\Dataset007_Pancreas\\nnUNetTrainer__nnUNetPlans__2d\\fold_0\\progress.png"
+    }
+}

@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-08-06T16:10:39+03:00",
+  "case_id": "PATIENT975891_roi_validation",
+  "input": "data/inference_output/audit_inputs/PATIENT975891_final_0000.nii.gz",
+  "checkpoint": "checkpoint_best.pth",
+  "result": {
+    "status": "verified",
+    "pancreas_verified": true,
+    "has_tumor": false,
+    "cross_model_dice": 0.8249,
+    "pancreas_voxels": 38004,
+    "pancreas_ml": 74.414,
+    "verified_tumor_voxels": 0,
+    "verified_tumor_ml": 0.0,
+    "rejected_single_slice_tumor_voxels": 683
+  },
+  "performance": {
+    "original_shape": [512, 512, 157],
+    "roi_shape": [512, 512, 96],
+    "roi_reduction_pct": 38.85,
+    "anatomical_gate_seconds": 53.032,
+    "nnunet_seconds": 74.344,
+    "dints_seconds": 101.047,
+    "first_run_seconds": 239.58,
+    "previous_pipeline_seconds": 342.55,
+    "first_run_reduction_pct": 30.06,
+    "cache_run_seconds": 0.24
+  },
+  "regression": {
+    "previous_mask": "data/inference_output/segmentation_masks/PATIENT975891_ultra.nii.gz",
+    "new_mask": "data/inference_output/segmentation_masks/PATIENT975891_roi_validation.nii.gz",
+    "organ_dice": 0.9969,
+    "tumor_decision_unchanged": true
+  },
+  "outputs": {
+    "interactive_3d": "web/static/results/PATIENT975891_final_0000_3d_interactive.html",
+    "reconstruction_store": "data/inference_output/3d_reconstructions/PATIENT975891_final_0000/PATIENT975891_final_0000_3d_interactive.html",
+    "dicom_zip": "web/static/results/PATIENT975891_final_0000_maskeli_goruntu.zip",
+    "live_result_url": "http://127.0.0.1:5000/result/live-3d-speed-validation"
+  },
+  "rollback": {
+    "instructions": "checkpoints/rollback_20260806_before_3d_speed_fix/GERI_DONUS_NOKTASI.md",
+    "sha256": "A21A6ECC98A1E2BBC8BEF7387C2FC7DA4188D202EE9841B4C90514FF882B2CC5"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "thresholds": {
+    "primary": {
+      "medformer": 0.45,
+      "rsuper": 0.45
+    },
+    "core": {
+      "medformer": 0.6,
+      "rsuper": 0.6
+    },
+    "envelope": {
+      "medformer": 0.3,
+      "rsuper": 0.3
+    }
+  },
+  "cross_model_dice_at_primary_thresholds": 0.19875545830199184,
+  "volumes_ml": {
+    "core": 42.402,
+    "primary": 51.762,
+    "envelope": 62.755,
+    "pancreas_and_tumor": 100.388
+  },
+  "measurements": {
+    "coordinate_system": "NIfTI RAS hasta koordinatları",
+    "voxel_volume_ml": 0.0005512,
+    "pancreas": {
+      "voxels": 88211,
+      "volume_ml": 48.626,
+      "dimensions_rl_ap_si_mm": [
+        126.9,
+        68.8,
+        78.3
+      ],
+      "centroid_ras_mm": [
+        11.6,
+        167.9,
+        -1104.2
+      ],
+      "bbox_ras_mm": {
+        "min": [
+          -59.9,
+          131.8,
+          -1149.8
+        ],
+        "max": [
+          66.9,
+          200.6,
+          -1071.6
+        ]
+      }
+    },
+    "tumor": {
+      "voxels": 93899,
+      "volume_ml": 51.762,
+      "dimensions_rl_ap_si_mm": [
+        56.7,
+        55.5,
+        71.0
+      ],
+      "centroid_ras_mm": [
+        38.1,
+        173.4,
+        -1106.1
+      ],
+      "bbox_ras_mm": {
+        "min": [
+          4.5,
+          145.6,
+          -1136.6
+        ],
+        "max": [
+          61.2,
+          201.0,
+          -1065.7
+        ]
+      }
+    },
+    "estimated_location": {
+      "estimated_region": "baş-gövde",
+      "method": "pankreasın RAS sağ-sol uzanımındaki göreli tümör aralığı",
+      "tumor_range_fraction_left_to_right": [
+        0.515,
+        0.958
+      ],
+      "warning": "Kaba anatomik tahmindir; radyolog lokalizasyonunun yerini tutmaz."
+    }
+  },
+  "output_mask": "data\\inference_output\\segmentation_masks\\PATIENT50122693840.nii.gz",
+  "output_uncertainty": "data\\inference_output\\segmentation_masks\\PATIENT50122693840_uncertainty.nii.gz"
+}

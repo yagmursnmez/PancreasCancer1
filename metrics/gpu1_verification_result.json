@@ -1,0 +1,1 @@
+﻿{"status": "ok", "pid": 19908, "windows_adapter": "GPU 1", "cuda_device": "cuda:0", "name": "NVIDIA GeForce RTX 3060 Laptop GPU", "torch": "2.7.1+cu118", "cuda_runtime": "11.8", "vram_total_gb": 6.0, "vram_peak_mib": 224.1, "elapsed_seconds": 35.81, "iterations": 1828, "checksum": 0.0}

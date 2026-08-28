@@ -1,0 +1,19 @@
+{
+    "step": "ADIM3_Preprocessing",
+    "timestamp": "2026-08-17 09:22:00",
+    "success": false,
+    "env_vars": {
+        "nnUNet_raw": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/data/nnunet_raw",
+        "nnUNet_preprocessed": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/data/nnunet_preprocessed",
+        "nnUNet_results": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/data/nnunet_results"
+    },
+    "resources": {
+        "ram_avail_gb": 6.451457977294922,
+        "disk_free_gb": 84.56012725830078,
+        "cpu_count": 12
+    },
+    "config": {
+        "dataset_id": "007",
+        "configuration": "2d"
+    }
+}

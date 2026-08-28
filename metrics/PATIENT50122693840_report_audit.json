@@ -1,0 +1,43 @@
+{
+  "case_id": "PATIENT50122693840",
+  "series": "SE000003-Kontrastsli Abdomen 2.00 Br32 S3 ax",
+  "audit_date": "2026-08-07",
+  "report_reference": {
+    "lesion_location": "pankreas baş-gövde",
+    "lesion_dimensions_mm": [66.0, 55.0],
+    "qualifier": "kistik alanlar içeren yer kaplayıcı lezyon; pankreas ca?"
+  },
+  "refined_mask": {
+    "models": ["nnU-Net", "DiNTS", "MedFormer PanTS", "R-Super PanTS Merlin"],
+    "thresholds": {"medformer": 0.45, "rsuper": 0.45, "core": 0.60, "envelope": 0.30},
+    "tumor_voxels": 93899,
+    "tumor_volume_ml": 51.762,
+    "dimensions_rl_ap_si_mm": [56.7, 55.5, 71.0],
+    "estimated_location": "baş-gövde",
+    "healthy_pancreas_volume_ml": 48.626,
+    "pancreas_and_tumor_volume_ml": 100.388,
+    "uncertainty_volumes_ml": {"core": 42.402, "primary": 51.762, "envelope": 62.755},
+    "pants_cross_model_dice": 0.1988
+  },
+  "report_concordance": {
+    "location": "uyumlu",
+    "size": "yakın; ölçüm düzlemi farkı saklıdır",
+    "largest_axis_difference_mm": 5.0,
+    "largest_axis_difference_percent": 7.6,
+    "second_axis_difference_mm": 1.7,
+    "second_axis_difference_percent": 3.1
+  },
+  "fold0_validation_46_cases": {
+    "nnunet_mean_tumor_dice": 0.2984,
+    "medformer_union_threshold": 0.40,
+    "medformer_union_mean_dice": 0.5724,
+    "rsuper_union_threshold": 0.30,
+    "rsuper_union_mean_dice": 0.5635,
+    "three_model_thresholds": {"medformer": 0.45, "rsuper": 0.45},
+    "three_model_mean_dice": 0.5832,
+    "three_model_median_dice": 0.6304,
+    "nnunet_pancreas_mean_dice": 0.8017,
+    "pants_union_pancreas_mean_dice": 0.8312
+  },
+  "verdict": "Pozitif aday ve baş-gövde lokalizasyonu raporla uyumlu; yeni üçlü sınır rapor boyutuna yakındır. Hasta-özel uzman konturu bulunmadığından sonuç otomatik segmentasyon adayı olarak kalır."
+}

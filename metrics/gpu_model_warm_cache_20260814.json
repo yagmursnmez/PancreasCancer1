@@ -1,0 +1,305 @@
+{
+  "status": "ok",
+  "started_at": "2026-08-14T07:44:14.087661+00:00",
+  "finished_at": "2026-08-14T07:44:14.858403+00:00",
+  "elapsed_seconds": 0.766,
+  "input": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\web\\static\\uploads\\denemetumorlu_0000.nii.gz",
+  "case_id": "gpu_warm_validation_20260814",
+  "cache_bypassed": false,
+  "cuda": {
+    "device": "cuda:0",
+    "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "memory_gb": 6.0,
+    "torch": "2.7.1+cu118",
+    "cuda": "11.8",
+    "visible_devices": "0",
+    "python": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\venv\\Scripts\\python.exe"
+  },
+  "windows_task_manager_adapter": "GPU 1",
+  "cuda_device": "cuda:0",
+  "error": null,
+  "quality": {
+    "status": "candidate",
+    "pancreas_verified": true,
+    "has_tumor": true,
+    "voxel_volume_ml": 0.0007486,
+    "raw_pancreas_voxels": 121185,
+    "raw_tumor_voxels": 14063,
+    "primary_tumor_voxels": 4002,
+    "secondary_tumor_voxels": 12595,
+    "gate_voxels": 58459,
+    "gate_ml": 43.764,
+    "gate_slices": 62,
+    "gate_components": 1,
+    "gate_plausible": true,
+    "tumor_components": [
+      {
+        "component": 1,
+        "raw_voxels": 11808,
+        "raw_ml": 8.8398,
+        "supported_voxels": 10018,
+        "supported_ml": 7.4998,
+        "supported_slices": 28,
+        "support_fraction": 0.8484,
+        "primary_model_voxels": 2761,
+        "secondary_model_voxels": 11316,
+        "cross_model_overlap_voxels": 2269,
+        "cross_model_overlap_ml": 1.6986,
+        "accepted": true,
+        "rejection_reasons": []
+      },
+      {
+        "component": 2,
+        "raw_voxels": 40,
+        "raw_ml": 0.0299,
+        "supported_voxels": 40,
+        "supported_ml": 0.0299,
+        "supported_slices": 1,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 40,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "kesit_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 3,
+        "raw_voxels": 65,
+        "raw_ml": 0.0487,
+        "supported_voxels": 44,
+        "supported_ml": 0.0329,
+        "supported_slices": 2,
+        "support_fraction": 0.6769,
+        "primary_model_voxels": 65,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 4,
+        "raw_voxels": 254,
+        "raw_ml": 0.1902,
+        "supported_voxels": 254,
+        "supported_ml": 0.1902,
+        "supported_slices": 2,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 254,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 5,
+        "raw_voxels": 19,
+        "raw_ml": 0.0142,
+        "supported_voxels": 19,
+        "supported_ml": 0.0142,
+        "supported_slices": 1,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 19,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "kesit_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 6,
+        "raw_voxels": 126,
+        "raw_ml": 0.0943,
+        "supported_voxels": 126,
+        "supported_ml": 0.0943,
+        "supported_slices": 2,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 126,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 7,
+        "raw_voxels": 1751,
+        "raw_ml": 1.3109,
+        "supported_voxels": 1751,
+        "supported_ml": 1.3109,
+        "supported_slices": 13,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 737,
+        "secondary_model_voxels": 1279,
+        "cross_model_overlap_voxels": 265,
+        "cross_model_overlap_ml": 0.1984,
+        "accepted": true,
+        "rejection_reasons": []
+      }
+    ],
+    "reason": null,
+    "cross_model_dice": 0.5898,
+    "tumor_cross_model_dice": 0.3054,
+    "tumor_cross_model_overlap_voxels": 2534,
+    "tumor_cross_model_overlap_ml": 1.897,
+    "pancreas_voxels": 117791,
+    "pancreas_ml": 88.182,
+    "tumor_voxels": 17997,
+    "tumor_ml": 13.473,
+    "rejected_tumor_voxels": 504,
+    "nnunet_raw_tumor_voxels": 4002,
+    "dints_raw_tumor_voxels": 12595,
+    "models": [
+      "nnU-Net v2 2D",
+      "MONAI DiNTS 3B",
+      "TotalSegmentator 3B full",
+      "MedFormer PanTS",
+      "R-Super PanTS Merlin"
+    ],
+    "checkpoint": "checkpoint_best.pth",
+    "roi_original_shape": [
+      512,
+      512,
+      497
+    ],
+    "roi_shape": [
+      512,
+      512,
+      222
+    ],
+    "roi_slice_range": [
+      260,
+      482
+    ],
+    "roi_reduction_pct": 55.33,
+    "timings": {
+      "cache_lookup_s": 0.766,
+      "anatomical_gate_s": 90.047,
+      "nnunet_s": 157.375,
+      "dints_s": 98.063,
+      "pants_medformer_s": 68.047,
+      "pants_rsuper_s": 67.062
+    },
+    "cache_key": "d46ea05624e6c54143f463eab6ea25caea6ebae6819993c01d608627cf932e62",
+    "cache_hit": true,
+    "pants_enabled": true,
+    "pants_models": [
+      "MedFormer PanTS",
+      "R-Super PanTS Merlin"
+    ],
+    "pants_thresholds": {
+      "medformer": 0.45,
+      "rsuper": 0.45,
+      "core": 0.6,
+      "envelope": 0.3
+    },
+    "pants_cross_model_dice": 0.6798,
+    "pants_expansion_allowed": true,
+    "pants_rejection_reason": null,
+    "pants_added_tumor_voxels": 6189,
+    "tumor_core_ml": 14.121,
+    "tumor_primary_ml": 13.473,
+    "tumor_envelope_ml": 23.64,
+    "pants_roi_shape": [
+      294,
+      330,
+      244
+    ],
+    "uncertainty_mask_path": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\segmentation_masks\\denemetumorlu_uncertainty.nii.gz"
+  },
+  "telemetry": {
+    "samples": 2,
+    "active_samples": 0,
+    "average_utilization_percent": 0.0,
+    "average_active_utilization_percent": 0.0,
+    "peak_utilization_percent": 0,
+    "peak_memory_used_mib": 10,
+    "peak_power_w": 23.38,
+    "peak_sm_clock_mhz": 1425,
+    "active_sample_ratio": 0.0,
+    "by_stage": {
+      "Önbellek kontrol ediliyor": {
+        "samples": 2,
+        "active_samples": 0,
+        "average_utilization_percent": 0.0,
+        "average_active_utilization_percent": 0.0,
+        "peak_utilization_percent": 0,
+        "peak_memory_used_mib": 10,
+        "peak_power_w": 23.38,
+        "peak_sm_clock_mhz": 1425
+      }
+    }
+  },
+  "samples": [
+    {
+      "sampled_at": "2026-08-14T07:44:14.177266+00:00",
+      "cuda_index": 0,
+      "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "pci_bus_id": "00000000:01:00.0",
+      "utilization_percent": 0,
+      "memory_used_mib": 10,
+      "memory_total_mib": 6144,
+      "temperature_c": 47,
+      "power_w": 15.97,
+      "performance_state": "P0",
+      "sm_clock_mhz": 1425,
+      "stage": "Önbellek kontrol ediliyor",
+      "progress_percent": 62,
+      "model_process_active": false,
+      "model_export_active": false
+    },
+    {
+      "sampled_at": "2026-08-14T07:44:14.797804+00:00",
+      "cuda_index": 0,
+      "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "pci_bus_id": "00000000:01:00.0",
+      "utilization_percent": 0,
+      "memory_used_mib": 10,
+      "memory_total_mib": 6144,
+      "temperature_c": 47,
+      "power_w": 23.38,
+      "performance_state": "P0",
+      "sm_clock_mhz": 1425,
+      "stage": "Önbellek kontrol ediliyor",
+      "progress_percent": 62,
+      "model_process_active": false,
+      "model_export_active": false
+    }
+  ],
+  "mask": {
+    "shape": [
+      512,
+      512,
+      497
+    ],
+    "sha256_uint8_voxels": "26dbff17afb882bd77bac63eebd25e1dad44a091c1bf1d90edd516006036542a",
+    "pancreas_voxels": 117791,
+    "tumor_voxels": 17997
+  },
+  "comparison": {
+    "reference": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\segmentation_masks\\denemetumorlu.nii.gz",
+    "same_shape": true,
+    "exact_voxel_match": true,
+    "different_voxels": 0,
+    "reference_sha256_uint8_voxels": "26dbff17afb882bd77bac63eebd25e1dad44a091c1bf1d90edd516006036542a"
+  }
+}

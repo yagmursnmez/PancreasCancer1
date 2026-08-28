@@ -1,0 +1,433 @@
+{
+  "created_at": "2026-08-06T14:48:13.645500",
+  "scope": "Seçilmiş 8 pozitif MSD fold-0 vakası; negatif özgüllük ölçmez.",
+  "case_count": 8,
+  "summary": {
+    "nnunet_tumor_dice_mean": 0.5897,
+    "dints_tumor_dice_mean": 0.7634,
+    "verified_ensemble_tumor_dice_mean": 0.8537,
+    "verified_tumor_detected": 8
+  },
+  "cases": [
+    {
+      "case_id": "case_0015",
+      "nnunet_tumor_dice": 0.0,
+      "dints_tumor_dice": 0.7481,
+      "verified_ensemble_tumor_dice": 0.7481,
+      "verified_tumor_detected": true,
+      "quality": {
+        "status": "verified",
+        "pancreas_verified": true,
+        "has_tumor": true,
+        "voxel_volume_ml": 0.0015875,
+        "raw_pancreas_voxels": 68615,
+        "raw_tumor_voxels": 1559,
+        "gate_voxels": 39962,
+        "gate_ml": 63.441,
+        "gate_slices": 41,
+        "gate_components": 1,
+        "gate_plausible": true,
+        "tumor_components": [
+          {
+            "component": 1,
+            "raw_voxels": 1559,
+            "raw_ml": 2.475,
+            "supported_voxels": 1559,
+            "supported_ml": 2.475,
+            "supported_slices": 7,
+            "support_fraction": 1.0,
+            "accepted": true,
+            "rejection_reasons": []
+          }
+        ],
+        "reason": null,
+        "cross_model_dice": 0.709,
+        "pancreas_voxels": 69076,
+        "pancreas_ml": 109.66,
+        "tumor_voxels": 1559,
+        "tumor_ml": 2.475,
+        "rejected_tumor_voxels": 0
+      }
+    },
+    {
+      "case_id": "case_0018",
+      "nnunet_tumor_dice": 0.9013,
+      "dints_tumor_dice": 0.8961,
+      "verified_ensemble_tumor_dice": 0.8834,
+      "verified_tumor_detected": true,
+      "quality": {
+        "status": "verified",
+        "pancreas_verified": true,
+        "has_tumor": true,
+        "voxel_volume_ml": 0.0009403,
+        "raw_pancreas_voxels": 57849,
+        "raw_tumor_voxels": 7502,
+        "gate_voxels": 44098,
+        "gate_ml": 41.465,
+        "gate_slices": 29,
+        "gate_components": 1,
+        "gate_plausible": true,
+        "tumor_components": [
+          {
+            "component": 1,
+            "raw_voxels": 7502,
+            "raw_ml": 7.054,
+            "supported_voxels": 7502,
+            "supported_ml": 7.054,
+            "supported_slices": 9,
+            "support_fraction": 1.0,
+            "accepted": true,
+            "rejection_reasons": []
+          }
+        ],
+        "reason": null,
+        "cross_model_dice": 0.7258,
+        "pancreas_voxels": 62230,
+        "pancreas_ml": 58.514,
+        "tumor_voxels": 7502,
+        "tumor_ml": 7.054,
+        "rejected_tumor_voxels": 0
+      }
+    },
+    {
+      "case_id": "case_0020",
+      "nnunet_tumor_dice": 0.7411,
+      "dints_tumor_dice": 0.8515,
+      "verified_ensemble_tumor_dice": 0.8583,
+      "verified_tumor_detected": true,
+      "quality": {
+        "status": "verified",
+        "pancreas_verified": true,
+        "has_tumor": true,
+        "voxel_volume_ml": 0.0033967,
+        "raw_pancreas_voxels": 46837,
+        "raw_tumor_voxels": 3301,
+        "gate_voxels": 31466,
+        "gate_ml": 106.88,
+        "gate_slices": 20,
+        "gate_components": 1,
+        "gate_plausible": true,
+        "tumor_components": [
+          {
+            "component": 1,
+            "raw_voxels": 3301,
+            "raw_ml": 11.2125,
+            "supported_voxels": 3301,
+            "supported_ml": 11.2125,
+            "supported_slices": 7,
+            "support_fraction": 1.0,
+            "accepted": true,
+            "rejection_reasons": []
+          }
+        ],
+        "reason": null,
+        "cross_model_dice": 0.7598,
+        "pancreas_voxels": 47107,
+        "pancreas_ml": 160.008,
+        "tumor_voxels": 3301,
+        "tumor_ml": 11.212,
+        "rejected_tumor_voxels": 0
+      }
+    },
+    {
+      "case_id": "case_0041",
+      "nnunet_tumor_dice": 0.9265,
+      "dints_tumor_dice": 0.8717,
+      "verified_ensemble_tumor_dice": 0.8831,
+      "verified_tumor_detected": true,
+      "quality": {
+        "status": "verified",
+        "pancreas_verified": true,
+        "has_tumor": true,
+        "voxel_volume_ml": 0.0030518,
+        "raw_pancreas_voxels": 31334,
+        "raw_tumor_voxels": 3078,
+        "gate_voxels": 8097,
+        "gate_ml": 24.71,
+        "gate_slices": 9,
+        "gate_components": 2,
+        "gate_plausible": true,
+        "tumor_components": [
+          {
+            "component": 1,
+            "raw_voxels": 323,
+            "raw_ml": 0.9857,
+            "supported_voxels": 323,
+            "supported_ml": 0.9857,
+            "supported_slices": 3,
+            "support_fraction": 1.0,
+            "accepted": true,
+            "rejection_reasons": []
+          },
+          {
+            "component": 2,
+            "raw_voxels": 2755,
+            "raw_ml": 8.4076,
+            "supported_voxels": 2442,
+            "supported_ml": 7.4524,
+            "supported_slices": 5,
+            "support_fraction": 0.8864,
+            "accepted": true,
+            "rejection_reasons": []
+          }
+        ],
+        "reason": null,
+        "cross_model_dice": 0.3726,
+        "pancreas_voxels": 22996,
+        "pancreas_ml": 70.178,
+        "tumor_voxels": 3078,
+        "tumor_ml": 9.393,
+        "rejected_tumor_voxels": 0
+      }
+    },
+    {
+      "case_id": "case_0053",
+      "nnunet_tumor_dice": 0.4107,
+      "dints_tumor_dice": 0.8902,
+      "verified_ensemble_tumor_dice": 0.8892,
+      "verified_tumor_detected": true,
+      "quality": {
+        "status": "verified",
+        "pancreas_verified": true,
+        "has_tumor": true,
+        "voxel_volume_ml": 0.0016663,
+        "raw_pancreas_voxels": 52163,
+        "raw_tumor_voxels": 8937,
+        "gate_voxels": 38803,
+        "gate_ml": 64.657,
+        "gate_slices": 29,
+        "gate_components": 2,
+        "gate_plausible": true,
+        "tumor_components": [
+          {
+            "component": 1,
+            "raw_voxels": 63,
+            "raw_ml": 0.105,
+            "supported_voxels": 63,
+            "supported_ml": 0.105,
+            "supported_slices": 1,
+            "support_fraction": 1.0,
+            "accepted": false,
+            "rejection_reasons": [
+              "hacim_esigi",
+              "kesit_esigi"
+            ]
+          },
+          {
+            "component": 2,
+            "raw_voxels": 8874,
+            "raw_ml": 14.7867,
+            "supported_voxels": 8874,
+            "supported_ml": 14.7867,
+            "supported_slices": 13,
+            "support_fraction": 1.0,
+            "accepted": true,
+            "rejection_reasons": []
+          }
+        ],
+        "reason": null,
+        "cross_model_dice": 0.7336,
+        "pancreas_voxels": 54386,
+        "pancreas_ml": 90.623,
+        "tumor_voxels": 8874,
+        "tumor_ml": 14.787,
+        "rejected_tumor_voxels": 63
+      }
+    },
+    {
+      "case_id": "case_0074",
+      "nnunet_tumor_dice": 0.8297,
+      "dints_tumor_dice": 0.1104,
+      "verified_ensemble_tumor_dice": 0.8436,
+      "verified_tumor_detected": true,
+      "quality": {
+        "status": "verified",
+        "pancreas_verified": true,
+        "has_tumor": true,
+        "voxel_volume_ml": 0.0013074,
+        "raw_pancreas_voxels": 78052,
+        "raw_tumor_voxels": 43139,
+        "gate_voxels": 56967,
+        "gate_ml": 74.48,
+        "gate_slices": 33,
+        "gate_components": 1,
+        "gate_plausible": true,
+        "tumor_components": [
+          {
+            "component": 1,
+            "raw_voxels": 39653,
+            "raw_ml": 51.843,
+            "supported_voxels": 0,
+            "supported_ml": 0.0,
+            "supported_slices": 0,
+            "support_fraction": 0.0,
+            "accepted": false,
+            "rejection_reasons": [
+              "hacim_esigi",
+              "kesit_esigi",
+              "pankreas_komsulugu"
+            ]
+          },
+          {
+            "component": 2,
+            "raw_voxels": 3226,
+            "raw_ml": 4.2177,
+            "supported_voxels": 3226,
+            "supported_ml": 4.2177,
+            "supported_slices": 7,
+            "support_fraction": 1.0,
+            "accepted": true,
+            "rejection_reasons": []
+          },
+          {
+            "component": 3,
+            "raw_voxels": 241,
+            "raw_ml": 0.3151,
+            "supported_voxels": 0,
+            "supported_ml": 0.0,
+            "supported_slices": 0,
+            "support_fraction": 0.0,
+            "accepted": false,
+            "rejection_reasons": [
+              "hacim_esigi",
+              "kesit_esigi",
+              "pankreas_komsulugu"
+            ]
+          },
+          {
+            "component": 4,
+            "raw_voxels": 4,
+            "raw_ml": 0.0052,
+            "supported_voxels": 0,
+            "supported_ml": 0.0,
+            "supported_slices": 0,
+            "support_fraction": 0.0,
+            "accepted": false,
+            "rejection_reasons": [
+              "hacim_esigi",
+              "kesit_esigi",
+              "pankreas_komsulugu"
+            ]
+          },
+          {
+            "component": 5,
+            "raw_voxels": 6,
+            "raw_ml": 0.0078,
+            "supported_voxels": 0,
+            "supported_ml": 0.0,
+            "supported_slices": 0,
+            "support_fraction": 0.0,
+            "accepted": false,
+            "rejection_reasons": [
+              "hacim_esigi",
+              "kesit_esigi",
+              "pankreas_komsulugu"
+            ]
+          },
+          {
+            "component": 6,
+            "raw_voxels": 9,
+            "raw_ml": 0.0118,
+            "supported_voxels": 0,
+            "supported_ml": 0.0,
+            "supported_slices": 0,
+            "support_fraction": 0.0,
+            "accepted": false,
+            "rejection_reasons": [
+              "hacim_esigi",
+              "kesit_esigi",
+              "pankreas_komsulugu"
+            ]
+          }
+        ],
+        "reason": null,
+        "cross_model_dice": 0.6226,
+        "pancreas_voxels": 79555,
+        "pancreas_ml": 104.012,
+        "tumor_voxels": 3226,
+        "tumor_ml": 4.218,
+        "rejected_tumor_voxels": 39913
+      }
+    },
+    {
+      "case_id": "case_0094",
+      "nnunet_tumor_dice": 0.8665,
+      "dints_tumor_dice": 0.8548,
+      "verified_ensemble_tumor_dice": 0.8394,
+      "verified_tumor_detected": true,
+      "quality": {
+        "status": "verified",
+        "pancreas_verified": true,
+        "has_tumor": true,
+        "voxel_volume_ml": 0.0015259,
+        "raw_pancreas_voxels": 65858,
+        "raw_tumor_voxels": 3240,
+        "gate_voxels": 52707,
+        "gate_ml": 80.424,
+        "gate_slices": 29,
+        "gate_components": 1,
+        "gate_plausible": true,
+        "tumor_components": [
+          {
+            "component": 1,
+            "raw_voxels": 3240,
+            "raw_ml": 4.9438,
+            "supported_voxels": 3240,
+            "supported_ml": 4.9438,
+            "supported_slices": 8,
+            "support_fraction": 1.0,
+            "accepted": true,
+            "rejection_reasons": []
+          }
+        ],
+        "reason": null,
+        "cross_model_dice": 0.8582,
+        "pancreas_voxels": 66298,
+        "pancreas_ml": 101.163,
+        "tumor_voxels": 3240,
+        "tumor_ml": 4.944,
+        "rejected_tumor_voxels": 0
+      }
+    },
+    {
+      "case_id": "case_0113",
+      "nnunet_tumor_dice": 0.0422,
+      "dints_tumor_dice": 0.8848,
+      "verified_ensemble_tumor_dice": 0.8848,
+      "verified_tumor_detected": true,
+      "quality": {
+        "status": "verified",
+        "pancreas_verified": true,
+        "has_tumor": true,
+        "voxel_volume_ml": 0.0017633,
+        "raw_pancreas_voxels": 31907,
+        "raw_tumor_voxels": 8149,
+        "gate_voxels": 27837,
+        "gate_ml": 49.086,
+        "gate_slices": 35,
+        "gate_components": 1,
+        "gate_plausible": true,
+        "tumor_components": [
+          {
+            "component": 1,
+            "raw_voxels": 8149,
+            "raw_ml": 14.3695,
+            "supported_voxels": 8149,
+            "supported_ml": 14.3695,
+            "supported_slices": 11,
+            "support_fraction": 1.0,
+            "accepted": true,
+            "rejection_reasons": []
+          }
+        ],
+        "reason": null,
+        "cross_model_dice": 0.767,
+        "pancreas_voxels": 33706,
+        "pancreas_ml": 59.435,
+        "tumor_voxels": 8149,
+        "tumor_ml": 14.369,
+        "rejected_tumor_voxels": 0
+      }
+    }
+  ]
+}

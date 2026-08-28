@@ -1,0 +1,950 @@
+{
+  "summary": [
+    {
+      "candidate": "union",
+      "cases": 46,
+      "mean_dice": 0.8312427482507031,
+      "median_dice": 0.8406358140410404
+    },
+    {
+      "candidate": "pants_pancreas_plus_lesion",
+      "cases": 46,
+      "mean_dice": 0.8270975414496611,
+      "median_dice": 0.8461456196555535
+    },
+    {
+      "candidate": "pants_pancreas",
+      "cases": 46,
+      "mean_dice": 0.8257838930974636,
+      "median_dice": 0.8445552212816805
+    },
+    {
+      "candidate": "nnunet",
+      "cases": 46,
+      "mean_dice": 0.8016563755955041,
+      "median_dice": 0.8224172049561007
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "case_0015",
+      "candidate": "nnunet",
+      "dice": 0.7775974690103776
+    },
+    {
+      "case_id": "case_0015",
+      "candidate": "pants_pancreas",
+      "dice": 0.7945994648610277
+    },
+    {
+      "case_id": "case_0015",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.7950747341320743
+    },
+    {
+      "case_id": "case_0015",
+      "candidate": "union",
+      "dice": 0.8243541859840378
+    },
+    {
+      "case_id": "case_0017",
+      "candidate": "nnunet",
+      "dice": 0.7936243773806035
+    },
+    {
+      "case_id": "case_0017",
+      "candidate": "pants_pancreas",
+      "dice": 0.8058357499476816
+    },
+    {
+      "case_id": "case_0017",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8058357499476816
+    },
+    {
+      "case_id": "case_0017",
+      "candidate": "union",
+      "dice": 0.8153098823763735
+    },
+    {
+      "case_id": "case_0018",
+      "candidate": "nnunet",
+      "dice": 0.6444795622331769
+    },
+    {
+      "case_id": "case_0018",
+      "candidate": "pants_pancreas",
+      "dice": 0.6166031166092468
+    },
+    {
+      "case_id": "case_0018",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.6168254084997364
+    },
+    {
+      "case_id": "case_0018",
+      "candidate": "union",
+      "dice": 0.6299736242927028
+    },
+    {
+      "case_id": "case_0020",
+      "candidate": "nnunet",
+      "dice": 0.8753409998643537
+    },
+    {
+      "case_id": "case_0020",
+      "candidate": "pants_pancreas",
+      "dice": 0.8415761988483735
+    },
+    {
+      "case_id": "case_0020",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8447806137080585
+    },
+    {
+      "case_id": "case_0020",
+      "candidate": "union",
+      "dice": 0.8880929057841876
+    },
+    {
+      "case_id": "case_0021",
+      "candidate": "nnunet",
+      "dice": 0.6758191676298405
+    },
+    {
+      "case_id": "case_0021",
+      "candidate": "pants_pancreas",
+      "dice": 0.6651906801997374
+    },
+    {
+      "case_id": "case_0021",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.6652322878980281
+    },
+    {
+      "case_id": "case_0021",
+      "candidate": "union",
+      "dice": 0.7138032138554902
+    },
+    {
+      "case_id": "case_0028",
+      "candidate": "nnunet",
+      "dice": 0.7682804977745481
+    },
+    {
+      "case_id": "case_0028",
+      "candidate": "pants_pancreas",
+      "dice": 0.5582102375995506
+    },
+    {
+      "case_id": "case_0028",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.5634085708170757
+    },
+    {
+      "case_id": "case_0028",
+      "candidate": "union",
+      "dice": 0.7021840105407455
+    },
+    {
+      "case_id": "case_0031",
+      "candidate": "nnunet",
+      "dice": 0.8745959239085077
+    },
+    {
+      "case_id": "case_0031",
+      "candidate": "pants_pancreas",
+      "dice": 0.8539260509183778
+    },
+    {
+      "case_id": "case_0031",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8539260509183778
+    },
+    {
+      "case_id": "case_0031",
+      "candidate": "union",
+      "dice": 0.8875681827943135
+    },
+    {
+      "case_id": "case_0034",
+      "candidate": "nnunet",
+      "dice": 0.8936445059577786
+    },
+    {
+      "case_id": "case_0034",
+      "candidate": "pants_pancreas",
+      "dice": 0.838712619806065
+    },
+    {
+      "case_id": "case_0034",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.838712619806065
+    },
+    {
+      "case_id": "case_0034",
+      "candidate": "union",
+      "dice": 0.9008204272695582
+    },
+    {
+      "case_id": "case_0041",
+      "candidate": "nnunet",
+      "dice": 0.7989578810247503
+    },
+    {
+      "case_id": "case_0041",
+      "candidate": "pants_pancreas",
+      "dice": 0.8558160275194292
+    },
+    {
+      "case_id": "case_0041",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8564753513953962
+    },
+    {
+      "case_id": "case_0041",
+      "candidate": "union",
+      "dice": 0.840378090959579
+    },
+    {
+      "case_id": "case_0048",
+      "candidate": "nnunet",
+      "dice": 0.7965735082057268
+    },
+    {
+      "case_id": "case_0048",
+      "candidate": "pants_pancreas",
+      "dice": 0.8127220474757304
+    },
+    {
+      "case_id": "case_0048",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8127220474757304
+    },
+    {
+      "case_id": "case_0048",
+      "candidate": "union",
+      "dice": 0.8616071907988703
+    },
+    {
+      "case_id": "case_0050",
+      "candidate": "nnunet",
+      "dice": 0.5925278108164836
+    },
+    {
+      "case_id": "case_0050",
+      "candidate": "pants_pancreas",
+      "dice": 0.61984632487118
+    },
+    {
+      "case_id": "case_0050",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.6393388384179545
+    },
+    {
+      "case_id": "case_0050",
+      "candidate": "union",
+      "dice": 0.686916128368119
+    },
+    {
+      "case_id": "case_0051",
+      "candidate": "nnunet",
+      "dice": 0.7261236078514104
+    },
+    {
+      "case_id": "case_0051",
+      "candidate": "pants_pancreas",
+      "dice": 0.7017467657234554
+    },
+    {
+      "case_id": "case_0051",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.7107339488015145
+    },
+    {
+      "case_id": "case_0051",
+      "candidate": "union",
+      "dice": 0.7925346117012737
+    },
+    {
+      "case_id": "case_0053",
+      "candidate": "nnunet",
+      "dice": 0.3911044570459484
+    },
+    {
+      "case_id": "case_0053",
+      "candidate": "pants_pancreas",
+      "dice": 0.791965326780231
+    },
+    {
+      "case_id": "case_0053",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.791965326780231
+    },
+    {
+      "case_id": "case_0053",
+      "candidate": "union",
+      "dice": 0.8005472031837276
+    },
+    {
+      "case_id": "case_0058",
+      "candidate": "nnunet",
+      "dice": 0.8570651562324169
+    },
+    {
+      "case_id": "case_0058",
+      "candidate": "pants_pancreas",
+      "dice": 0.7901253429161658
+    },
+    {
+      "case_id": "case_0058",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.7987865398249057
+    },
+    {
+      "case_id": "case_0058",
+      "candidate": "union",
+      "dice": 0.8770534060992834
+    },
+    {
+      "case_id": "case_0069",
+      "candidate": "nnunet",
+      "dice": 0.8655438786306971
+    },
+    {
+      "case_id": "case_0069",
+      "candidate": "pants_pancreas",
+      "dice": 0.8216585735440989
+    },
+    {
+      "case_id": "case_0069",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8216585735440989
+    },
+    {
+      "case_id": "case_0069",
+      "candidate": "union",
+      "dice": 0.8780059817428163
+    },
+    {
+      "case_id": "case_0074",
+      "candidate": "nnunet",
+      "dice": 0.8981851908249007
+    },
+    {
+      "case_id": "case_0074",
+      "candidate": "pants_pancreas",
+      "dice": 0.847360167276529
+    },
+    {
+      "case_id": "case_0074",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.847360167276529
+    },
+    {
+      "case_id": "case_0074",
+      "candidate": "union",
+      "dice": 0.9083283079664816
+    },
+    {
+      "case_id": "case_0086",
+      "candidate": "nnunet",
+      "dice": 0.7804513663271101
+    },
+    {
+      "case_id": "case_0086",
+      "candidate": "pants_pancreas",
+      "dice": 0.7995760291840105
+    },
+    {
+      "case_id": "case_0086",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.7995760291840105
+    },
+    {
+      "case_id": "case_0086",
+      "candidate": "union",
+      "dice": 0.8208614128183763
+    },
+    {
+      "case_id": "case_0094",
+      "candidate": "nnunet",
+      "dice": 0.8890626896263434
+    },
+    {
+      "case_id": "case_0094",
+      "candidate": "pants_pancreas",
+      "dice": 0.8382622079981981
+    },
+    {
+      "case_id": "case_0094",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8388289040440521
+    },
+    {
+      "case_id": "case_0094",
+      "candidate": "union",
+      "dice": 0.8948661981828506
+    },
+    {
+      "case_id": "case_0096",
+      "candidate": "nnunet",
+      "dice": 0.6747505144602041
+    },
+    {
+      "case_id": "case_0096",
+      "candidate": "pants_pancreas",
+      "dice": 0.6727177311464747
+    },
+    {
+      "case_id": "case_0096",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.6734629050964401
+    },
+    {
+      "case_id": "case_0096",
+      "candidate": "union",
+      "dice": 0.7070691093152339
+    },
+    {
+      "case_id": "case_0100",
+      "candidate": "nnunet",
+      "dice": 0.885419721614366
+    },
+    {
+      "case_id": "case_0100",
+      "candidate": "pants_pancreas",
+      "dice": 0.8355652579495786
+    },
+    {
+      "case_id": "case_0100",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8406271693596649
+    },
+    {
+      "case_id": "case_0100",
+      "candidate": "union",
+      "dice": 0.884896294983159
+    },
+    {
+      "case_id": "case_0101",
+      "candidate": "nnunet",
+      "dice": 0.7749299212704033
+    },
+    {
+      "case_id": "case_0101",
+      "candidate": "pants_pancreas",
+      "dice": 0.8092600441372053
+    },
+    {
+      "case_id": "case_0101",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8092600441372053
+    },
+    {
+      "case_id": "case_0101",
+      "candidate": "union",
+      "dice": 0.7766836445953593
+    },
+    {
+      "case_id": "case_0110",
+      "candidate": "nnunet",
+      "dice": 0.8468335787923417
+    },
+    {
+      "case_id": "case_0110",
+      "candidate": "pants_pancreas",
+      "dice": 0.8766470954300711
+    },
+    {
+      "case_id": "case_0110",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8766312827496641
+    },
+    {
+      "case_id": "case_0110",
+      "candidate": "union",
+      "dice": 0.8749489857160004
+    },
+    {
+      "case_id": "case_0111",
+      "candidate": "nnunet",
+      "dice": 0.824254805460117
+    },
+    {
+      "case_id": "case_0111",
+      "candidate": "pants_pancreas",
+      "dice": 0.8479311150938985
+    },
+    {
+      "case_id": "case_0111",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8479311150938985
+    },
+    {
+      "case_id": "case_0111",
+      "candidate": "union",
+      "dice": 0.8408935371225016
+    },
+    {
+      "case_id": "case_0113",
+      "candidate": "nnunet",
+      "dice": 0.7028019269654022
+    },
+    {
+      "case_id": "case_0113",
+      "candidate": "pants_pancreas",
+      "dice": 0.8438877755511022
+    },
+    {
+      "case_id": "case_0113",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8616681065187408
+    },
+    {
+      "case_id": "case_0113",
+      "candidate": "union",
+      "dice": 0.8637896055850588
+    },
+    {
+      "case_id": "case_0121",
+      "candidate": "nnunet",
+      "dice": 0.7962137760302898
+    },
+    {
+      "case_id": "case_0121",
+      "candidate": "pants_pancreas",
+      "dice": 0.8452226670122589
+    },
+    {
+      "case_id": "case_0121",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.842273712285381
+    },
+    {
+      "case_id": "case_0121",
+      "candidate": "union",
+      "dice": 0.7988099635115006
+    },
+    {
+      "case_id": "case_0128",
+      "candidate": "nnunet",
+      "dice": 0.8530260358800782
+    },
+    {
+      "case_id": "case_0128",
+      "candidate": "pants_pancreas",
+      "dice": 0.8677215430899882
+    },
+    {
+      "case_id": "case_0128",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8680879413724184
+    },
+    {
+      "case_id": "case_0128",
+      "candidate": "union",
+      "dice": 0.8627248574281218
+    },
+    {
+      "case_id": "case_0129",
+      "candidate": "nnunet",
+      "dice": 0.8522069161030531
+    },
+    {
+      "case_id": "case_0129",
+      "candidate": "pants_pancreas",
+      "dice": 0.8537774858921969
+    },
+    {
+      "case_id": "case_0129",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8542791150012157
+    },
+    {
+      "case_id": "case_0129",
+      "candidate": "union",
+      "dice": 0.8903886458269634
+    },
+    {
+      "case_id": "case_0137",
+      "candidate": "nnunet",
+      "dice": 0.8148890072811223
+    },
+    {
+      "case_id": "case_0137",
+      "candidate": "pants_pancreas",
+      "dice": 0.8932231725341022
+    },
+    {
+      "case_id": "case_0137",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8922067347613327
+    },
+    {
+      "case_id": "case_0137",
+      "candidate": "union",
+      "dice": 0.8197046814698808
+    },
+    {
+      "case_id": "case_0142",
+      "candidate": "nnunet",
+      "dice": 0.7985570208135181
+    },
+    {
+      "case_id": "case_0142",
+      "candidate": "pants_pancreas",
+      "dice": 0.8781052652064338
+    },
+    {
+      "case_id": "case_0142",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8781052652064338
+    },
+    {
+      "case_id": "case_0142",
+      "candidate": "union",
+      "dice": 0.7973395800217519
+    },
+    {
+      "case_id": "case_0148",
+      "candidate": "nnunet",
+      "dice": 0.7566129568608483
+    },
+    {
+      "case_id": "case_0148",
+      "candidate": "pants_pancreas",
+      "dice": 0.9049673020731877
+    },
+    {
+      "case_id": "case_0148",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.9064890633276312
+    },
+    {
+      "case_id": "case_0148",
+      "candidate": "union",
+      "dice": 0.9037705707837818
+    },
+    {
+      "case_id": "case_0155",
+      "candidate": "nnunet",
+      "dice": 0.8285869100836746
+    },
+    {
+      "case_id": "case_0155",
+      "candidate": "pants_pancreas",
+      "dice": 0.8626451908913091
+    },
+    {
+      "case_id": "case_0155",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8641216960849849
+    },
+    {
+      "case_id": "case_0155",
+      "candidate": "union",
+      "dice": 0.8427645481144344
+    },
+    {
+      "case_id": "case_0160",
+      "candidate": "nnunet",
+      "dice": 0.882482082917536
+    },
+    {
+      "case_id": "case_0160",
+      "candidate": "pants_pancreas",
+      "dice": 0.9185485940535982
+    },
+    {
+      "case_id": "case_0160",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.9185485940535982
+    },
+    {
+      "case_id": "case_0160",
+      "candidate": "union",
+      "dice": 0.9081963799177412
+    },
+    {
+      "case_id": "case_0161",
+      "candidate": "nnunet",
+      "dice": 0.8014849187935035
+    },
+    {
+      "case_id": "case_0161",
+      "candidate": "pants_pancreas",
+      "dice": 0.8975200851095051
+    },
+    {
+      "case_id": "case_0161",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8975200851095051
+    },
+    {
+      "case_id": "case_0161",
+      "candidate": "union",
+      "dice": 0.8127738593604926
+    },
+    {
+      "case_id": "case_0164",
+      "candidate": "nnunet",
+      "dice": 0.8205796044520846
+    },
+    {
+      "case_id": "case_0164",
+      "candidate": "pants_pancreas",
+      "dice": 0.9185256642147996
+    },
+    {
+      "case_id": "case_0164",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.9166649952867085
+    },
+    {
+      "case_id": "case_0164",
+      "candidate": "union",
+      "dice": 0.8206006389776358
+    },
+    {
+      "case_id": "case_0178",
+      "candidate": "nnunet",
+      "dice": 0.8525888595279983
+    },
+    {
+      "case_id": "case_0178",
+      "candidate": "pants_pancreas",
+      "dice": 0.9015597272812179
+    },
+    {
+      "case_id": "case_0178",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8901578310225897
+    },
+    {
+      "case_id": "case_0178",
+      "candidate": "union",
+      "dice": 0.8383146449201495
+    },
+    {
+      "case_id": "case_0179",
+      "candidate": "nnunet",
+      "dice": 0.9140451800321077
+    },
+    {
+      "case_id": "case_0179",
+      "candidate": "pants_pancreas",
+      "dice": 0.9192567413075622
+    },
+    {
+      "case_id": "case_0179",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.9192567413075622
+    },
+    {
+      "case_id": "case_0179",
+      "candidate": "union",
+      "dice": 0.9291430016247524
+    },
+    {
+      "case_id": "case_0191",
+      "candidate": "nnunet",
+      "dice": 0.8092873462436664
+    },
+    {
+      "case_id": "case_0191",
+      "candidate": "pants_pancreas",
+      "dice": 0.8102403395760274
+    },
+    {
+      "case_id": "case_0191",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8102403395760274
+    },
+    {
+      "case_id": "case_0191",
+      "candidate": "union",
+      "dice": 0.8158551859408109
+    },
+    {
+      "case_id": "case_0194",
+      "candidate": "nnunet",
+      "dice": 0.8818277574359231
+    },
+    {
+      "case_id": "case_0194",
+      "candidate": "pants_pancreas",
+      "dice": 0.8876063256984524
+    },
+    {
+      "case_id": "case_0194",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8875902163983618
+    },
+    {
+      "case_id": "case_0194",
+      "candidate": "union",
+      "dice": 0.8859104397244479
+    },
+    {
+      "case_id": "case_0198",
+      "candidate": "nnunet",
+      "dice": 0.7567290987410458
+    },
+    {
+      "case_id": "case_0198",
+      "candidate": "pants_pancreas",
+      "dice": 0.8081028098453495
+    },
+    {
+      "case_id": "case_0198",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8081028098453495
+    },
+    {
+      "case_id": "case_0198",
+      "candidate": "union",
+      "dice": 0.7627811202985747
+    },
+    {
+      "case_id": "case_0199",
+      "candidate": "nnunet",
+      "dice": 0.8444988366119723
+    },
+    {
+      "case_id": "case_0199",
+      "candidate": "pants_pancreas",
+      "dice": 0.8887152693002588
+    },
+    {
+      "case_id": "case_0199",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8871638300636612
+    },
+    {
+      "case_id": "case_0199",
+      "candidate": "union",
+      "dice": 0.8465658428624124
+    },
+    {
+      "case_id": "case_0203",
+      "candidate": "nnunet",
+      "dice": 0.7929105091663101
+    },
+    {
+      "case_id": "case_0203",
+      "candidate": "pants_pancreas",
+      "dice": 0.8365351511395717
+    },
+    {
+      "case_id": "case_0203",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.844931072034578
+    },
+    {
+      "case_id": "case_0203",
+      "candidate": "union",
+      "dice": 0.8471359133698394
+    },
+    {
+      "case_id": "case_0213",
+      "candidate": "nnunet",
+      "dice": 0.8283654809705799
+    },
+    {
+      "case_id": "case_0213",
+      "candidate": "pants_pancreas",
+      "dice": 0.8430424330519372
+    },
+    {
+      "case_id": "case_0213",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8430424330519372
+    },
+    {
+      "case_id": "case_0213",
+      "candidate": "union",
+      "dice": 0.8041788914439775
+    },
+    {
+      "case_id": "case_0216",
+      "candidate": "nnunet",
+      "dice": 0.8244253004148354
+    },
+    {
+      "case_id": "case_0216",
+      "candidate": "pants_pancreas",
+      "dice": 0.8631358700941206
+    },
+    {
+      "case_id": "case_0216",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8591093061483845
+    },
+    {
+      "case_id": "case_0216",
+      "candidate": "union",
+      "dice": 0.8399946992600537
+    },
+    {
+      "case_id": "case_0222",
+      "candidate": "nnunet",
+      "dice": 0.8445664092641693
+    },
+    {
+      "case_id": "case_0222",
+      "candidate": "pants_pancreas",
+      "dice": 0.8559964695908674
+    },
+    {
+      "case_id": "case_0222",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.855903715186456
+    },
+    {
+      "case_id": "case_0222",
+      "candidate": "union",
+      "dice": 0.8370617897688302
+    },
+    {
+      "case_id": "case_0224",
+      "candidate": "nnunet",
+      "dice": 0.8623823951522883
+    },
+    {
+      "case_id": "case_0224",
+      "candidate": "pants_pancreas",
+      "dice": 0.8927494816079736
+    },
+    {
+      "case_id": "case_0224",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8927494816079736
+    },
+    {
+      "case_id": "case_0224",
+      "candidate": "union",
+      "dice": 0.8606526165918912
+    },
+    {
+      "case_id": "case_0225",
+      "candidate": "nnunet",
+      "dice": 0.8519583557087671
+    },
+    {
+      "case_id": "case_0225",
+      "candidate": "pants_pancreas",
+      "dice": 0.8991195425251883
+    },
+    {
+      "case_id": "case_0225",
+      "candidate": "pants_pancreas_plus_lesion",
+      "dice": 0.8991195425251883
+    },
+    {
+      "case_id": "case_0225",
+      "candidate": "union",
+      "dice": 0.8410124062782008
+    }
+  ]
+}
