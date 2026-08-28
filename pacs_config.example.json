@@ -1,0 +1,25 @@
+{
+  "pacs": {
+    "enabled": false,
+    "local": {
+      "ae_title": "PANC_AI",
+      "bind_host": "192.0.2.25",
+      "port": 11112
+    },
+    "remote": {
+      "ae_title": "HOSPITAL_PACS",
+      "host": "192.0.2.10",
+      "port": 104
+    },
+    "security": {
+      "allowed_calling_aes": [
+        "HOSPITAL_PACS"
+      ]
+    },
+    "cache": {
+      "max_cache_mb": 2048,
+      "max_instances_per_series": 2000
+    },
+    "accept_ct_only": true
+  }
+}

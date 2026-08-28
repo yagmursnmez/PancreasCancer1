@@ -1,0 +1,52 @@
+# ============================================================
+# PANKREAS KANSERI TESPITI — GEREKSINIMLER
+# ============================================================
+# Kurulum: python -m pip install -r requirements.txt
+
+# NVIDIA GPU icin CUDA 11.8 derlemesi kullanilir.
+--extra-index-url https://download.pytorch.org/whl/cu118
+
+# ---- TEMEL PAKETLER ----
+numpy>=1.24.0
+scipy>=1.10.0
+PyYAML>=6.0.0           # Konfigürasyon ve YAML okuma
+
+# ---- MEDIKAL GORUNTU ISLEME & DICOM ----
+nibabel>=5.1.0          # NIfTI dosya okuma/yazma
+SimpleITK>=2.2.0        # DICOM/NIfTI işleme
+pydicom>=2.4.0          # DICOM başlık ve veri okuma
+pynetdicom>=2.1.0       # PACS C-ECHO / C-STORE ağ bağlantısı (ayrı PACS köprüsü)
+highdicom>=0.28.0       # Kaynak CT'ye bağlı standart DICOM SEG üretimi
+
+# ---- DERIN OGRENME ----
+torch==2.7.1+cu118      # NVIDIA CUDA GPU derlemesi
+torchvision==0.22.1+cu118
+monai>=1.3.0            # MONAI medikal derin öğrenme framework'ü
+einops>=0.7.0           # Tensor operasyonları (MedFormer / SwinUNETR)
+timm>=0.9.0             # PyTorch Image Models (Vision Transformers)
+
+# ---- nnU-Net v2 ----
+nnunetv2                # Medikal görüntü segmentasyon framework'ü
+
+# ---- GORUNTU ISLEME ----
+scikit-image>=0.21.0    # Marching Cubes, image processing
+opencv-python>=4.8.0    # Görüntü manipülasyonu
+Pillow>=10.0.0          # PNG/JPEG işleme
+imageio>=2.31.0         # Görüntü I/O
+
+# ---- MAKİNE ÖGRENIMI METRİKLERİ ----
+scikit-learn>=1.3.0     # Metrik hesaplama
+
+# ---- VİZUALİZASYON ----
+matplotlib>=3.7.0       # Grafik ve 3D görselleştirme
+reportlab>=4.0.0        # İndirilebilir hasta PDF raporu
+plotly>=5.15.0          # İnteraktif 3D HTML
+
+# ---- WEB UYGULAMASI ----
+flask>=3.0.0            # Web framework
+werkzeug>=3.0.0         # Flask bağımlılığı
+
+# ---- YARDIMCI ----
+tqdm>=4.65.0            # Progress bar
+psutil>=5.9.0           # Sistem kaynak izleme
+pandas>=2.0.0           # CSV işleme

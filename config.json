@@ -1,0 +1,165 @@
+{
+    "project": {
+        "name": "PancreasCancerDetection",
+        "version": "1.0.0",
+        "description": "CT görüntülerinden pankreas tümörü tespiti",
+        "created_at": "2026-07-27 14:20:25",
+        "author": "YOUR_NAME_HERE"
+    },
+    "paths": {
+        "base": "C:/Users/monster/Documents/PythonProjects/PancreasCancer",
+        "data_raw": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/data/raw",
+        "nnunet_raw": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/data/nnunet_raw",
+        "nnunet_preprocessed": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/data/nnunet_preprocessed",
+        "nnunet_results": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/data/nnunet_results",
+        "inference_output": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/data/inference_output",
+        "web_uploads": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/web/static/uploads",
+        "web_results": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/web/static/results",
+        "logs": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/logs",
+        "metrics": "C:/Users/monster/Documents/PythonProjects/PancreasCancer/metrics"
+    },
+    "dataset": {
+        "id": "007",
+        "name": "Dataset007_Pancreas",
+        "num_classes": 3,
+        "labels": {
+            "0": "background",
+            "1": "pancreas",
+            "2": "tumor"
+        },
+        "modality": {
+            "0": "CT"
+        },
+        "file_ending": ".nii.gz",
+        "original_source": "Kaggle MSD Task07"
+    },
+    "nnunet": {
+        "configuration": "2d",
+        "trainer": "nnUNetTrainer",
+        "planner": "nnUNetPlannerResEncM",
+        "fold": 0,
+        "max_epochs": 1000,
+        "num_processes": 4,
+        "device": "cuda"
+    },
+    "training": {
+        "batch_size": 2,
+        "patch_size": [
+            512,
+            512
+        ],
+        "learning_rate": 0.001,
+        "weight_decay": 3e-05
+    },
+    "inference": {
+        "step_size": 0.5,
+        "use_gaussian": true,
+        "use_mirroring": true,
+        "nnunet_expected_seconds": 90,
+        "default_profile": "full_ensemble",
+        "profiles": {
+            "balanced": {
+                "label": "Hızlı 3-model doğrulama",
+                "nnunet_tta": false,
+                "dints_overlap": 0.5,
+                "pants_enabled": false
+            },
+            "full_ensemble": {
+                "label": "Tam 5-model doğrulama",
+                "nnunet_tta": true,
+                "dints_overlap": 0.625,
+                "pants_enabled": true
+            }
+        }
+    },
+    "tumor_model_3d": {
+        "enabled": true,
+        "python": ".venv_totalseg/Scripts/python.exe",
+        "pythonpath": [
+            ".venv_totalseg/Lib/site-packages"
+        ],
+        "bundle_dir": "data/monai_bundles/pancreas_ct_dints_segmentation",
+        "config_file": "configs/inference.yaml",
+        "timeout_seconds": 1800,
+        "sw_batch_size": 4,
+        "expected_seconds": 90,
+        "roi_crop_enabled": true,
+        "roi_margin_mm": 80.0
+    },
+    "pants_refinement": {
+        "enabled": true,
+        "python": ".python_runtime/python.exe",
+        "pythonpath": [
+            ".venv_totalseg/Lib/site-packages",
+            "venv/Lib/site-packages"
+        ],
+        "repo_dir": "data/external_models/R-Super/rsuper_train",
+        "class_list": "data/external_models/MedFormerPanTS/labels_pants.yaml",
+        "medformer_checkpoint": "data/external_models/MedFormerPanTS/pants_pancreas_release/fold_0_latest.pth",
+        "rsuper_checkpoint": "data/external_models/R-SuperPanTSMerlin/merlin_pancreas_pants_release/fold_0_latest.pth",
+        "roi_margin_mm": 80.0,
+        "timeout_seconds": 600,
+        "expected_seconds_per_model": 45,
+        "medformer_threshold": 0.45,
+        "rsuper_threshold": 0.45,
+        "core_threshold": 0.6,
+        "envelope_threshold": 0.3,
+        "min_cross_model_dice": 0.5,
+        "max_expansion_mm": 5.0,
+        "screening_enabled": true,
+        "screening_support_radius_mm": 10.0,
+        "screening_match_radius_mm": 5.0
+    },
+    "anatomical_gate": {
+        "enabled": true,
+        "executable": ".venv_totalseg/Scripts/TotalSegmentator.exe",
+        "python": ".venv_totalseg/Scripts/python.exe",
+        "pythonpath": [
+            ".venv_totalseg/Lib/site-packages"
+        ],
+        "home_dir": "data/totalsegmentator",
+        "device": "gpu",
+        "fast": true,
+        "retry_full_resolution_if_invalid": true,
+        "timeout_seconds": 900,
+        "expected_seconds": 75,
+        "roi_crop_enabled": true,
+        "roi_margin_mm": 80.0,
+        "roi_min_slices": 96,
+        "min_pancreas_ml": 3.0,
+        "max_pancreas_ml": 250.0,
+        "min_pancreas_slices": 3,
+        "min_cross_model_dice": 0.2,
+        "pancreas_fusion_radius_mm": 30.0,
+        "tumor_support_radius_mm": 5.0,
+        "min_tumor_component_ml": 0.3,
+        "min_tumor_slices": 2,
+        "min_tumor_support_fraction": 0.1,
+        "min_tumor_cross_model_dice": 0.1,
+        "min_tumor_cross_model_overlap_ml": 0.1,
+        "tumor_model_match_radius_mm": 5.0,
+        "min_tumor_cross_model_proximity_dice": 0.1,
+        "unverified_tumor_support_radius_mm": 5.0,
+        "min_unverified_tumor_support_fraction": 0.2,
+        "min_unverified_tumor_component_ml": 0.4,
+        "min_unverified_tumor_slices": 1,
+        "require_tumor_model_consensus": true
+    },
+    "classification": {
+        "tumor_label": 2,
+        "decision_source": "anatomically_verified_3d_components"
+    },
+    "web": {
+        "port": 5000,
+        "debug": true,
+        "default_execution_mode": "cache_allowed",
+        "max_upload_mb": 8192,
+        "max_upload_files": 5000,
+        "dicom_header_workers": 32,
+        "io_buffer_mb": 8,
+        "allowed_ext": [
+            ".nii",
+            ".nii.gz"
+        ]
+    }
+}

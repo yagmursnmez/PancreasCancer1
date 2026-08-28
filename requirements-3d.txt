@@ -1,0 +1,12 @@
+# Ayrı .venv_totalseg ortamı içindir. CUDA uyumlu torch ayrıca kurulmalıdır.
+TotalSegmentator==2.16.0
+monai[fire]==1.5.2
+pytorch-ignite==0.5.5
+pydicom>=2.4.0
+PyYAML>=6.0.0
+einops>=0.7.0
+timm>=0.9.0
+imageio>=2.31.0
+nibabel>=5.1.0
+SimpleITK>=2.2.0
+scipy>=1.10.0
