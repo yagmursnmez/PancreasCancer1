@@ -1,0 +1,11 @@
+{
+    "folder_with_segs_from_prev_stage": null,
+    "list_of_lists_or_source_folder": "c:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\.gemini\\antigravity\\brain\\14e53c1a-25ff-494e-92b2-a72a1c439894\\scratch\\nnunet_in",
+    "num_parts": 1,
+    "num_processes_preprocessing": 2,
+    "num_processes_segmentation_export": 2,
+    "output_folder_or_list_of_truncated_output_files": "c:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\.gemini\\antigravity\\brain\\14e53c1a-25ff-494e-92b2-a72a1c439894\\scratch\\nnunet_out_npp2",
+    "overwrite": true,
+    "part_id": 0,
+    "save_probabilities": false
+}
