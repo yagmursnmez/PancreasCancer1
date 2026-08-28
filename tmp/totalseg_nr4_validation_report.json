@@ -1,0 +1,27 @@
+{
+  "totalsegmentator_version": "2.16.0",
+  "nnunetv2_version": "2.8.1",
+  "torch_version": "2.7.1+cu118",
+  "task": "total",
+  "modality": "CT",
+  "license_required": false,
+  "device": "gpu",
+  "fast": false,
+  "fastest": false,
+  "save_lowres": false,
+  "multilabel": false,
+  "output_type": "nifti",
+  "roi_subset": [
+    "pancreas"
+  ],
+  "input": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\web\\static\\uploads\\denemetumorlu_0000.nii.gz",
+  "output": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\tmp\\totalseg_nr4_validation",
+  "num_classes": 1,
+  "classes": {
+    "7": "pancreas"
+  },
+  "runtime_seconds": 72.39,
+  "output_files": [
+    "pancreas.nii.gz"
+  ]
+}

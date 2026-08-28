@@ -1,0 +1,363 @@
+{
+  "status": "ok",
+  "started_at": "2026-08-17T07:12:15.425163+00:00",
+  "finished_at": "2026-08-17T07:12:17.145487+00:00",
+  "elapsed_seconds": 1.719,
+  "input": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\web\\static\\uploads\\denemetumorlu_0000.nii.gz",
+  "case_id": "post_fix_cache_benchmark",
+  "cache_bypassed": false,
+  "cuda": {
+    "device": "cuda:0",
+    "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "uuid": "babda9de-6daa-e75d-3b9c-0100760dd034",
+    "pci_bus_id": "",
+    "memory_gb": 6.0,
+    "torch": "2.7.1+cu118",
+    "cuda": "11.8",
+    "allocator": "cudaMallocAsync",
+    "module_loading": "LAZY",
+    "visible_devices": "0",
+    "python": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\venv\\Scripts\\python.exe",
+    "vendor": "NVIDIA",
+    "physical_selector": "0"
+  },
+  "selected_gpu": {
+    "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "uuid": "babda9de-6daa-e75d-3b9c-0100760dd034",
+    "cuda_device": "cuda:0",
+    "physical_selector": "0"
+  },
+  "cuda_device": "cuda:0",
+  "error": null,
+  "quality": {
+    "status": "candidate",
+    "pancreas_verified": true,
+    "has_tumor": true,
+    "voxel_volume_ml": 0.0007486,
+    "raw_pancreas_voxels": 121184,
+    "raw_tumor_voxels": 14063,
+    "primary_tumor_voxels": 4002,
+    "secondary_tumor_voxels": 12595,
+    "gate_voxels": 58455,
+    "gate_ml": 43.761,
+    "gate_slices": 62,
+    "gate_components": 1,
+    "gate_plausible": true,
+    "tumor_components": [
+      {
+        "component": 1,
+        "raw_voxels": 11808,
+        "raw_ml": 8.8398,
+        "supported_voxels": 10018,
+        "supported_ml": 7.4998,
+        "supported_slices": 28,
+        "support_fraction": 0.8484,
+        "primary_model_voxels": 2761,
+        "secondary_model_voxels": 11316,
+        "cross_model_overlap_voxels": 2269,
+        "cross_model_overlap_ml": 1.6986,
+        "accepted": true,
+        "rejection_reasons": []
+      },
+      {
+        "component": 2,
+        "raw_voxels": 40,
+        "raw_ml": 0.0299,
+        "supported_voxels": 40,
+        "supported_ml": 0.0299,
+        "supported_slices": 1,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 40,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "kesit_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 3,
+        "raw_voxels": 65,
+        "raw_ml": 0.0487,
+        "supported_voxels": 44,
+        "supported_ml": 0.0329,
+        "supported_slices": 2,
+        "support_fraction": 0.6769,
+        "primary_model_voxels": 65,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 4,
+        "raw_voxels": 254,
+        "raw_ml": 0.1902,
+        "supported_voxels": 254,
+        "supported_ml": 0.1902,
+        "supported_slices": 2,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 254,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 5,
+        "raw_voxels": 19,
+        "raw_ml": 0.0142,
+        "supported_voxels": 19,
+        "supported_ml": 0.0142,
+        "supported_slices": 1,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 19,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "kesit_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 6,
+        "raw_voxels": 126,
+        "raw_ml": 0.0943,
+        "supported_voxels": 126,
+        "supported_ml": 0.0943,
+        "supported_slices": 2,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 126,
+        "secondary_model_voxels": 0,
+        "cross_model_overlap_voxels": 0,
+        "cross_model_overlap_ml": 0.0,
+        "accepted": false,
+        "rejection_reasons": [
+          "hacim_esigi",
+          "tek_model_adayi"
+        ]
+      },
+      {
+        "component": 7,
+        "raw_voxels": 1751,
+        "raw_ml": 1.3109,
+        "supported_voxels": 1751,
+        "supported_ml": 1.3109,
+        "supported_slices": 13,
+        "support_fraction": 1.0,
+        "primary_model_voxels": 737,
+        "secondary_model_voxels": 1279,
+        "cross_model_overlap_voxels": 265,
+        "cross_model_overlap_ml": 0.1984,
+        "accepted": true,
+        "rejection_reasons": []
+      }
+    ],
+    "reason": null,
+    "cross_model_dice": 0.5898,
+    "tumor_cross_model_dice": 0.3054,
+    "tumor_cross_model_overlap_voxels": 2534,
+    "tumor_cross_model_overlap_ml": 1.897,
+    "pancreas_voxels": 117786,
+    "pancreas_ml": 88.178,
+    "tumor_voxels": 17997,
+    "tumor_ml": 13.473,
+    "rejected_tumor_voxels": 504,
+    "nnunet_raw_tumor_voxels": 4002,
+    "dints_raw_tumor_voxels": 12595,
+    "models": [
+      "nnU-Net v2 2D",
+      "MONAI DiNTS 3B",
+      "TotalSegmentator 3B full",
+      "MedFormer PanTS",
+      "R-Super PanTS Merlin"
+    ],
+    "checkpoint": "checkpoint_best.pth",
+    "roi_original_shape": [
+      512,
+      512,
+      497
+    ],
+    "roi_shape": [
+      512,
+      512,
+      222
+    ],
+    "roi_slice_range": [
+      260,
+      482
+    ],
+    "roi_reduction_pct": 55.33,
+    "timings": {
+      "cache_lookup_s": 0.953,
+      "cache_bypassed": true,
+      "anatomical_gate_s": 106.391,
+      "nnunet_s": 142.297,
+      "dints_s": 106.781,
+      "pants_medformer_s": 48.485,
+      "pants_rsuper_s": 47.5
+    },
+    "cache_key": "d46ea05624e6c54143f463eab6ea25caea6ebae6819993c01d608627cf932e62",
+    "cache_hit": true,
+    "pants_enabled": true,
+    "pants_models": [
+      "MedFormer PanTS",
+      "R-Super PanTS Merlin"
+    ],
+    "pants_thresholds": {
+      "medformer": 0.45,
+      "rsuper": 0.45,
+      "core": 0.6,
+      "envelope": 0.3
+    },
+    "pants_cross_model_dice": 0.6798,
+    "pants_expansion_allowed": true,
+    "pants_rejection_reason": null,
+    "pants_added_tumor_voxels": 6189,
+    "tumor_core_ml": 14.121,
+    "tumor_primary_ml": 13.473,
+    "tumor_envelope_ml": 23.64,
+    "pants_roi_shape": [
+      294,
+      330,
+      244
+    ],
+    "uncertainty_mask_path": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\segmentation_masks\\denemetumorlu_uncertainty.nii.gz",
+    "execution_mode": "cache_hit_models_skipped",
+    "gpu_audit": {
+      "audit_id": "20260817T101215_verify-1786950735_441c4281",
+      "status": "cache_hit",
+      "execution_mode": "cache_allowed",
+      "model_chain_executed": false,
+      "started_at": "2026-08-17T10:12:15.903+03:00",
+      "finished_at": "2026-08-17T10:12:16.379+03:00",
+      "report_path": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\metrics\\gpu_runs\\20260817T101215_verify-1786950735_441c4281\\gpu_run_report.json",
+      "report_url": "/api/gpu_audit/20260817T101215_verify-1786950735_441c4281",
+      "selected_gpu": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "uuid": "babda9de-6daa-e75d-3b9c-0100760dd034",
+        "cuda_device": "cuda:0",
+        "physical_selector": "0"
+      },
+      "active_stage": null,
+      "last_completed_stage": null,
+      "stage_count": 0,
+      "verified_stage_count": 0,
+      "gpu_verified": false,
+      "evidence_policy": "model_process_cuda_pid_and_device_activity",
+      "sample_count": 0,
+      "total_stage_elapsed_s": 0,
+      "average_utilization_percent": 0.0,
+      "peak_utilization_percent": 0,
+      "peak_memory_used_mib": 0,
+      "peak_memory_delta_mib": 0,
+      "peak_power_w": 0.0,
+      "peak_sm_clock_mhz": 0,
+      "gpu_utilization_active_samples": 0,
+      "observed_model_cuda_pids": []
+    },
+    "gpu_audit_id": "20260817T101215_verify-1786950735_441c4281"
+  },
+  "telemetry": {
+    "samples": 2,
+    "active_samples": 0,
+    "average_utilization_percent": 0.0,
+    "average_active_utilization_percent": 0.0,
+    "peak_utilization_percent": 0,
+    "peak_memory_used_mib": 150,
+    "peak_power_w": 24.6,
+    "peak_sm_clock_mhz": 1425,
+    "active_sample_ratio": 0.0,
+    "by_stage": {
+      "NVIDIA GPU dogrulandi": {
+        "samples": 1,
+        "active_samples": 0,
+        "average_utilization_percent": 0.0,
+        "average_active_utilization_percent": 0.0,
+        "peak_utilization_percent": 0,
+        "peak_memory_used_mib": 150,
+        "peak_power_w": 23.8,
+        "peak_sm_clock_mhz": 1425
+      },
+      "Önbellek sonucu — GPU modeli çalıştırılmadı": {
+        "samples": 1,
+        "active_samples": 0,
+        "average_utilization_percent": 0.0,
+        "average_active_utilization_percent": 0.0,
+        "peak_utilization_percent": 0,
+        "peak_memory_used_mib": 0,
+        "peak_power_w": 24.6,
+        "peak_sm_clock_mhz": 0
+      }
+    }
+  },
+  "samples": [
+    {
+      "sampled_at": "2026-08-17T07:12:15.465169+00:00",
+      "gpu_index": 0,
+      "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "gpu_uuid": "GPU-babda9de-6daa-e75d-3b9c-0100760dd034",
+      "utilization_percent": 0,
+      "memory_used_mib": 150,
+      "memory_total_mib": 6144,
+      "temperature_c": 48,
+      "power_w": 23.8,
+      "performance_state": "P0",
+      "sm_clock_mhz": 1425,
+      "source": "NVIDIA NVML driver API",
+      "stage": "NVIDIA GPU dogrulandi",
+      "progress_percent": 62,
+      "model_process_active": false,
+      "model_export_active": false
+    },
+    {
+      "sampled_at": "2026-08-17T07:12:17.144489+00:00",
+      "gpu_index": 0,
+      "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "gpu_uuid": "GPU-babda9de-6daa-e75d-3b9c-0100760dd034",
+      "utilization_percent": 0,
+      "memory_used_mib": 0,
+      "memory_total_mib": 6144,
+      "temperature_c": 48,
+      "power_w": 24.6,
+      "performance_state": "P0",
+      "sm_clock_mhz": 0,
+      "source": "NVIDIA driver (nvidia-smi)",
+      "stage": "Önbellek sonucu — GPU modeli çalıştırılmadı",
+      "progress_percent": 90,
+      "model_process_active": false,
+      "model_export_active": false
+    }
+  ],
+  "mask": {
+    "shape": [
+      512,
+      512,
+      497
+    ],
+    "sha256_uint8_voxels": "2bdb435e08d89905dcc91b0c8adb462cd4882d49f68148ef21308defc00629b2",
+    "pancreas_voxels": 117786,
+    "tumor_voxels": 17997
+  },
+  "comparison": {
+    "reference": "C:\\Users\\monster\\Documents\\PythonProjects\\PancreasCancer\\data\\inference_output\\segmentation_masks\\denemetumorlu.nii.gz",
+    "same_shape": true,
+    "exact_voxel_match": true,
+    "different_voxels": 0,
+    "reference_sha256_uint8_voxels": "2bdb435e08d89905dcc91b0c8adb462cd4882d49f68148ef21308defc00629b2"
+  }
+}
